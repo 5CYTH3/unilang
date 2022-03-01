@@ -16,7 +16,7 @@ import "Std"
 
 func main(): void {
     hw: string = "Hello World";
-    std.print(string);
+    Std.print(string);
 }
 ```
 
@@ -29,7 +29,7 @@ import "Std"
 class Main {
     func main(): void {
         hw: string = "Hello World";
-        std.print(string);
+        Std.print(string);
     }
 }
 ```
