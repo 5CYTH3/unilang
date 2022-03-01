@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
 
 type Operator int64
@@ -26,22 +28,23 @@ func dump() {
 }
 
 func compile(file string) {
-	data, err := os.ReadFile(file)
+	f, err := os.ReadFile(file)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(data)
+	t_file := string(f)
+	fmt.Println(t_file)
 
 }
 
 func interpret() {
-	var input string
-	fmt.Println("Interpreter function called.")
+	reader := bufio.NewReader(os.Stdin)
 	for {
-		fmt.Printf("uni>>")
-		fmt.Scanln(&input)
-		fmt.Println(input)
+		fmt.Printf("$uni-> ")
+		text, _ := reader.ReadString('\n')
+		text = strings.Replace(text, "\n", "", -1)
+		fmt.Println(text)
 	}
 }
 
@@ -60,8 +63,6 @@ Usage: uni <command> [argument]
 Commands:
 	- test
 	- compile [file]
-
-		`)
-
+	`)
 	}
 }
