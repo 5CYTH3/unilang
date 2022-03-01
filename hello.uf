@@ -1,6 +1,0 @@
-package main
-
-func main(): void {
-    hw: string = "Hello World";
-    std.print(string);
-}
