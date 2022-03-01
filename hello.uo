@@ -1,0 +1,12 @@
+package main
+
+import "std"
+
+class Main {
+
+    func main(): void {
+        hw: string = "Hello World";
+        std.print(string);
+    }
+
+}
