@@ -37,7 +37,7 @@ class Main {
 ## Objectives
 
 All the steps I want to achieve for this programming language:
-- [] Interpreter
-- [] AST
-- [] Compiler
-- [] Turing-complete
+- [ ] Interpreter
+- [ ] AST
+- [ ] Compiler
+- [ ] Turing-complete
