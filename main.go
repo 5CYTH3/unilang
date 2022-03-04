@@ -13,18 +13,23 @@ const (
 	OP_PLUS Operator = iota
 	OP_MIN
 	OP_PUSH
+	OP_DUMP
 )
 
-func plus() Operator {
-	return OP_PLUS
+func plus() [1]Operator {
+	return [1]Operator{OP_PLUS}
 }
 
-func min() Operator {
-	return OP_MIN
+func min() [1]Operator {
+	return [1]Operator{OP_MIN}
 }
 
-func push() Operator {
-	return OP_PUSH
+func push(value int) [2]interface{} {
+	return [2]interface{}{OP_PLUS, value}
+}
+
+func dump() [1]interface{} {
+	return [1]interface{}{OP_DUMP}
 }
 
 // TEMPORARY
@@ -46,25 +51,22 @@ func parse(file string) Operator {
 */
 
 // TEST
-func test(file string) {
-	trimmed := strings.Split(file, " ")
-	var arr []Operator
-	for _, i := range trimmed {
-		switch i {
-		case "+":
-			arr = append(arr, plus())
-		case "-":
-			arr = append(arr, min())
+func test(entry []interface{}) {
+	var arr []interface{}
+	for _, i := range entry {
+		if i[0] == byte(OP_PUSH) {
+			arr = append(arr, i[1])
+		} else if i[0] == byte(OP_MIN) {
+			a := arr[:len(arr)-1]
+			b := arr[:len(arr)-1]
+			arr = append(arr, a+b)
+		} else if i[0] == byte(OP_DUMP) {
+			a := arr[:len(arr)-1]
+			fmt.Println(a)
 		}
+		fmt.Println(arr)
 	}
 
-	for _, j := range arr {
-		switch j {
-		case OP_PLUS:
-
-		}
-	}
-	fmt.Println(arr)
 }
 
 func compile(file string) {
@@ -74,7 +76,15 @@ func compile(file string) {
 	}
 
 	t_file := string(f)
-	test(t_file)
+	trimmed := strings.Split(t_file, " ")
+	program := []interface{}{
+		push(5),
+		push(4),
+		plus(),
+		dump(),
+	}
+
+	test(program)
 
 }
 
