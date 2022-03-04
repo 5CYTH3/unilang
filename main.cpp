@@ -9,8 +9,9 @@ Operator dump() { return (OP_DUMP); }
 
 void compile() {}
 void interpret() {
-  std::string a;
+  std::cout << "Test function called!" << std::endl;
   while (true) {
+    std::string a;
     std::cout << "$uni-> ";
     std::cin >> a;
     std::cout << a << std::endl;
@@ -20,6 +21,7 @@ void interpret() {
 int main(int argc, char const *argv[]) {
   if (argc >= 2) {
     if (argv[1] == "compile") {
+      std::cout << "Test function called!" << std::endl;
       compile();
     } else if (argv[1] == "test") {
       interpret();
