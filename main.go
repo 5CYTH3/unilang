@@ -15,16 +15,56 @@ const (
 	OP_PUSH
 )
 
-func push(x interface{}) Operator {
-	return OP_PUSH
-}
-
 func plus() Operator {
 	return OP_PLUS
 }
 
-func dump() {
+func min() Operator {
+	return OP_MIN
+}
 
+func push() Operator {
+	return OP_PUSH
+}
+
+// TEMPORARY
+/*
+func parse(file string) Operator {
+	var stack []interface{}
+	trimmed := strings.Split(file, " ")
+
+	for _, i := range trimmed {
+		switch i {
+		case "+":
+			plus()
+		case "-":
+			min()
+		case "":
+		}
+	}
+}
+*/
+
+// TEST
+func test(file string) {
+	trimmed := strings.Split(file, " ")
+	var arr []Operator
+	for _, i := range trimmed {
+		switch i {
+		case "+":
+			arr = append(arr, plus())
+		case "-":
+			arr = append(arr, min())
+		}
+	}
+
+	for _, j := range arr {
+		switch j {
+		case OP_PLUS:
+
+		}
+	}
+	fmt.Println(arr)
 }
 
 func compile(file string) {
@@ -34,7 +74,7 @@ func compile(file string) {
 	}
 
 	t_file := string(f)
-	fmt.Println(t_file)
+	test(t_file)
 
 }
 
