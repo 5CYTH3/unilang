@@ -2,7 +2,7 @@
 The Uni language is a project for a language that uses different paradigms relatively to the file type.
 For a file ending with .uo, your code will be Object Oriented. For a file ending with .uf, yout code will be functional.
 
-The compiler that I am trying to build was previously made in Golang, a fast and modern garbage-collected programming language but it is now made in C++.
+The compiler that I am trying to build is actually made in Golang. It's a fast, readable and garbage-collected language.
 
 ## Syntax
 
