@@ -36,7 +36,7 @@ func parse(file string) Operator {
 */
 
 // Compiling task. Takes array of Token as entry and prints out the result.
-func compile(entry []t.Token) {
+func interpreter(entry []t.Token) {
 	var arr []int
 	for _, i := range entry {
 		if i.GetOp() == t.OP_PUSH {
@@ -57,34 +57,22 @@ func compile(entry []t.Token) {
 			os.Exit(1)
 		}
 	}
-
 }
 
-func parseFile(file string) {
-	/* f, err := os.ReadFile(file)
+func parseFile(file string) []t.Token {
+	f, err := os.ReadFile(file)
 	if err != nil {
 		panic(err)
 	}
-
 	t_file := string(f)
 	trimmed := strings.Split(t_file, " ")
-	fmt.Println(trimmed)*/
-
-	program := []t.Token{
-		t.Push(3),
-		t.Push(18),
-		t.Plus(),
-		t.Dump(),
-	}
-
-	compile(program)
-
+	return parse(trimmed)
 }
 
-func parseLine(line string) []t.Token {
+func parse(data []string) []t.Token {
 	var stack []t.Token
-	trimmed := strings.Split(line, " ")
-	for _, i := range trimmed {
+
+	for _, i := range data {
 		switch i {
 		case "+":
 			fmt.Println("Plus")
@@ -104,18 +92,25 @@ func parseLine(line string) []t.Token {
 			}
 		}
 	}
-
 	return stack
-
 }
 
-func interpret() {
+func parseLine(line string) []t.Token {
+	trimmed := strings.Split(line, " ")
+	return parse(trimmed)
+}
+
+func compile(arg string) {
+	interpreter(parseFile(arg))
+}
+
+func sim() {
 	reader := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Printf("$uni-> ")
 		reader.Scan()
 		stack := parseLine(reader.Text())
-		compile(stack)
+		interpreter(stack)
 	}
 }
 
@@ -124,13 +119,13 @@ func main() {
 		switch os.Args[1] {
 		case "compile":
 			if len(os.Args) >= 3 {
-				parseFile(os.Args[2])
+				compile(os.Args[2])
 			} else {
 				fmt.Println("err: Please provide a file for the parsing.")
 				fmt.Println("-> Usage: uni compile <file>")
 			}
 		case "test":
-			interpret()
+			sim()
 		}
 	} else {
 		fmt.Println(`
