@@ -9,6 +9,7 @@ import (
 	t "scythe.com/uni/tokens"
 )
 
+// Parse a file and return the Parse function with the red file as parameter
 func ParseFile(file string) []t.Token {
 	f, err := os.ReadFile(file)
 	if err != nil {
@@ -19,6 +20,7 @@ func ParseFile(file string) []t.Token {
 	return Parse(trimmed)
 }
 
+// Parse a string array and append for each chars an operator to an array. Then, return the array
 func Parse(data []string) []t.Token {
 	var stack []t.Token
 
@@ -45,6 +47,7 @@ func Parse(data []string) []t.Token {
 	return stack
 }
 
+// Parse a line (string) and return the Parse function with the line passed as parameter
 func ParseLine(line string) []t.Token {
 	trimmed := strings.Split(line, " ")
 	return Parse(trimmed)

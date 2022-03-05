@@ -9,6 +9,7 @@ import (
 	t "scythe.com/uni/tokens"
 )
 
+// Pop and return last element of a list
 func pop(alist *[]int) int {
 	f := len(*alist)
 	rv := (*alist)[f-1]
@@ -40,10 +41,12 @@ func interpreter(entry []t.Token) {
 	}
 }
 
+// Interpret the file from ParseFile function
 func compile(arg string) {
 	interpreter(p.ParseFile(arg))
 }
 
+// Interpret the user input from ParseLine function
 func sim() {
 	reader := bufio.NewScanner(os.Stdin)
 	for {
