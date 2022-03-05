@@ -4,97 +4,56 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
+
+	p "scythe.com/uni/parser"
+	t "scythe.com/uni/tokens"
 )
 
-type Operator int64
-
-const (
-	OP_PLUS Operator = iota
-	OP_MIN
-	OP_PUSH
-	OP_DUMP
-)
-
-func plus() [1]Operator {
-	return [1]Operator{OP_PLUS}
+// Pop and return last element of a list
+func pop(alist *[]int) int {
+	f := len(*alist)
+	rv := (*alist)[f-1]
+	*alist = (*alist)[:f-1]
+	return rv
 }
 
-func min() [1]Operator {
-	return [1]Operator{OP_MIN}
-}
-
-func push(value int) [2]interface{} {
-	return [2]interface{}{OP_PLUS, value}
-}
-
-func dump() [1]interface{} {
-	return [1]interface{}{OP_DUMP}
-}
-
-// TEMPORARY
-/*
-func parse(file string) Operator {
-	var stack []interface{}
-	trimmed := strings.Split(file, " ")
-
-	for _, i := range trimmed {
-		switch i {
-		case "+":
-			plus()
-		case "-":
-			min()
-		case "":
-		}
-	}
-}
-*/
-
-// TEST
-func test(entry []interface{}) {
-	var arr []interface{}
+// Compiling task. Takes array of Token as entry and prints out the result.
+func interpreter(entry []t.Token) {
+	var arr []int
 	for _, i := range entry {
-		if i[0] == byte(OP_PUSH) {
-			arr = append(arr, i[1])
-		} else if i[0] == byte(OP_MIN) {
-			a := arr[:len(arr)-1]
-			b := arr[:len(arr)-1]
+		if i.GetOp() == t.OP_PUSH {
+			arr = append(arr, i.GetValue())
+		} else if i.GetOp() == t.OP_PLUS {
+			a := pop(&arr)
+			b := pop(&arr)
 			arr = append(arr, a+b)
-		} else if i[0] == byte(OP_DUMP) {
-			a := arr[:len(arr)-1]
+		} else if i.GetOp() == t.OP_DUMP {
+			a := pop(&arr)
 			fmt.Println(a)
+		} else if i.GetOp() == t.OP_MIN {
+			a := pop(&arr)
+			b := pop(&arr)
+			arr = append(arr, a-b)
+		} else {
+			fmt.Println("parsing error: Invalid syntax.")
+			os.Exit(1)
 		}
-		fmt.Println(arr)
 	}
-
 }
 
-func compile(file string) {
-	f, err := os.ReadFile(file)
-	if err != nil {
-		panic(err)
-	}
-
-	t_file := string(f)
-	trimmed := strings.Split(t_file, " ")
-	program := []interface{}{
-		push(5),
-		push(4),
-		plus(),
-		dump(),
-	}
-
-	test(program)
-
+// Interpret the file from ParseFile function
+func compile(arg string) {
+	interpreter(p.ParseFile(arg))
 }
 
-func interpret() {
-	reader := bufio.NewReader(os.Stdin)
+// Interpret the user input from ParseLine function
+func sim() {
+	reader := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Printf("$uni-> ")
-		text, _ := reader.ReadString('\n')
-		text = strings.Replace(text, "\n", "", -1)
-		fmt.Println(text)
+		reader.Scan()
+		stack := p.ParseLine(reader.Text())
+		interpreter(stack)
 	}
 }
 
@@ -102,9 +61,14 @@ func main() {
 	if len(os.Args) >= 2 {
 		switch os.Args[1] {
 		case "compile":
-			compile(os.Args[2])
+			if len(os.Args) >= 3 {
+				compile(os.Args[2])
+			} else {
+				fmt.Println("err: Please provide a file for the parsing.")
+				fmt.Println("-> Usage: uni compile <file>")
+			}
 		case "test":
-			interpret()
+			sim()
 		}
 	} else {
 		fmt.Println(`
