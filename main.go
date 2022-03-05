@@ -5,36 +5,9 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	t "scythe.com/uni/tokens"
 )
-
-type Operator int64
-type Token struct {
-	op    Operator
-	value int
-}
-
-const (
-	OP_PLUS Operator = iota
-	OP_MIN
-	OP_PUSH
-	OP_DUMP
-)
-
-func plus() Token {
-	return Token{OP_PLUS, 0}
-}
-
-func min() Token {
-	return Token{OP_MIN, 0}
-}
-
-func push(value int) Token {
-	return Token{OP_PUSH, value}
-}
-
-func dump() Token {
-	return Token{OP_DUMP, 0}
-}
 
 func pop(alist *[]int) int {
 	f := len(*alist)
@@ -62,40 +35,45 @@ func parse(file string) Operator {
 */
 
 // TEST
-func test(entry []Token) {
+func compile(entry []t.Token) {
 	var arr []int
 	for _, i := range entry {
-		if i.op == OP_PUSH {
-			arr = append(arr, i.value)
-		} else if i.op == OP_PLUS {
+		if i.GetOp() == t.OP_PUSH {
+			arr = append(arr, i.GetValue())
+		} else if i.GetOp() == t.OP_PLUS {
 			a := pop(&arr)
 			b := pop(&arr)
 			arr = append(arr, a+b)
-		} else if i.op == OP_DUMP {
+		} else if i.GetOp() == t.OP_DUMP {
 			a := pop(&arr)
 			fmt.Println(a)
+		} else if i.GetOp() == t.OP_MIN {
+			a := pop(&arr)
+			b := pop(&arr)
+			arr = append(arr, a-b)
 		}
 	}
 
 }
 
-func compile(file string) {
-	f, err := os.ReadFile(file)
+func parse(file string) {
+	/* f, err := os.ReadFile(file)
 	if err != nil {
 		panic(err)
 	}
 
 	t_file := string(f)
 	trimmed := strings.Split(t_file, " ")
-	fmt.Println(trimmed)
-	program := []Token{
-		push(3),
-		push(18),
-		plus(),
-		dump(),
+	fmt.Println(trimmed)*/
+
+	program := []t.Token{
+		t.Push(3),
+		t.Push(18),
+		t.Plus(),
+		t.Dump(),
 	}
 
-	test(program)
+	compile(program)
 
 }
 
@@ -113,7 +91,12 @@ func main() {
 	if len(os.Args) >= 2 {
 		switch os.Args[1] {
 		case "compile":
-			compile(os.Args[2])
+			if len(os.Args) >= 3 {
+				parse(os.Args[2])
+			} else {
+				fmt.Println("err: Please provide a file for the parsing.")
+				fmt.Println("-> Usage: uni compile <file>")
+			}
 		case "test":
 			interpret()
 		}

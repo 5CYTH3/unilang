@@ -1,3 +1,3 @@
-module scythe.com/v1
+module scythe.com/uni
 
 go 1.17
