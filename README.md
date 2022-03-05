@@ -37,6 +37,9 @@ class Main {
 ## Objectives
 
 All the steps I want to achieve for this programming language:
+- [ ] Basic array calculation
+- [ ] Basic file parser
+- [ ] Basic interpreter parsing system
 - [ ] Interpreter
 - [ ] AST
 - [ ] Compiler
