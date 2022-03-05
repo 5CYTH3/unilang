@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 
 	t "scythe.com/uni/tokens"
@@ -34,7 +35,7 @@ func parse(file string) Operator {
 }
 */
 
-// TEST
+// Compiling task. Takes array of Token as entry and prints out the result.
 func compile(entry []t.Token) {
 	var arr []int
 	for _, i := range entry {
@@ -51,12 +52,15 @@ func compile(entry []t.Token) {
 			a := pop(&arr)
 			b := pop(&arr)
 			arr = append(arr, a-b)
+		} else {
+			fmt.Println("parsing error: Invalid syntax.")
+			os.Exit(1)
 		}
 	}
 
 }
 
-func parse(file string) {
+func parseFile(file string) {
 	/* f, err := os.ReadFile(file)
 	if err != nil {
 		panic(err)
@@ -77,13 +81,41 @@ func parse(file string) {
 
 }
 
+func parseLine(line string) []t.Token {
+	var stack []t.Token
+	trimmed := strings.Split(line, " ")
+	for _, i := range trimmed {
+		switch i {
+		case "+":
+			fmt.Println("Plus")
+			stack = append(stack, t.Plus())
+		case "-":
+			fmt.Println("Min")
+			stack = append(stack, t.Min())
+		case "dmp":
+			fmt.Println("Dumped")
+			stack = append(stack, t.Dump())
+		default:
+			fmt.Println("Num called")
+			if num, err := strconv.Atoi(i); err == nil {
+				fmt.Println("Num check passed")
+				fmt.Println(num)
+				stack = append(stack, t.Push(num))
+			}
+		}
+	}
+
+	return stack
+
+}
+
 func interpret() {
-	reader := bufio.NewReader(os.Stdin)
+	reader := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Printf("$uni-> ")
-		text, _ := reader.ReadString('\n')
-		text = strings.Replace(text, "\n", "", -1)
-		fmt.Println(text)
+		reader.Scan()
+		stack := parseLine(reader.Text())
+		compile(stack)
 	}
 }
 
@@ -92,7 +124,7 @@ func main() {
 		switch os.Args[1] {
 		case "compile":
 			if len(os.Args) >= 3 {
-				parse(os.Args[2])
+				parseFile(os.Args[2])
 			} else {
 				fmt.Println("err: Please provide a file for the parsing.")
 				fmt.Println("-> Usage: uni compile <file>")
