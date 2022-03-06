@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	c "color"
 	p "scythe.com/uni/parser"
 	t "scythe.com/uni/tokens"
 )
@@ -49,6 +48,7 @@ func GenerateAssembly(entry []t.Tokens) {
 			// Asm
 		} else if i.GetOp() == t.OP_PLUS {
 			// Asm
+			fmt.Println()	
 		} else if i.GetOp() == t.OP_DUMP {
 			// Asm
 		} else if i.GetOp() == t.OP_MIN {

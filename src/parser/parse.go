@@ -1,11 +1,12 @@
 package parser
 
 import (
-	"fmt"
 	"os"
 	"strconv"
 	"strings"
 
+	"github.com/fatih/color"
+	c "github.com/fatih/color"
 	t "scythe.com/uni/tokens"
 )
 
@@ -27,19 +28,20 @@ func Parse(data []string) []t.Tokens {
 	for _, i := range data {
 		switch i {
 		case "+":
-			fmt.Println()
+			c.Red("Plus")
 			stack = append(stack, t.Plus())
 		case "-":
-			fmt.Println("Min")
+			c.Red("Min")
 			stack = append(stack, t.Min())
 		case "dmp":
-			fmt.Println("Dumped")
+			c.Red("Dumped")
 			stack = append(stack, t.Dump())
 		default:
-			fmt.Println("Num called")
+			c.Red("Num called")
 			if num, err := strconv.Atoi(i); err == nil {
-				fmt.Println("Num check passed")
-				fmt.Println(num)
+				c.Red("Num check passed")
+				cyan := c.New(c.FgCyan).Add(color.Underline)
+				cyan.Println(num)
 				stack = append(stack, t.Push(num))
 			}
 		}
