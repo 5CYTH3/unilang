@@ -4,7 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-
+	"strings"
+	c "color"
 	p "scythe.com/uni/parser"
 	t "scythe.com/uni/tokens"
 )
@@ -16,9 +17,9 @@ func pop(alist *[]int) int {
 	*alist = (*alist)[:f-1]
 	return rv
 }
-
+	
 // Compiling task. Takes array of Token as entry and prints out the result.
-func interpreter(entry []t.Token) {
+func interpreter(entry []t.Tokens) {
 	var arr []int
 	for _, i := range entry {
 		if i.GetOp() == t.OP_PUSH {
@@ -34,6 +35,24 @@ func interpreter(entry []t.Token) {
 			a := pop(&arr)
 			b := pop(&arr)
 			arr = append(arr, a-b)
+		} else {
+			fmt.Println("parsing error: Invalid syntax.")
+			os.Exit(1)
+		}
+	}
+}
+
+func GenerateAssembly(entry []t.Tokens) {
+	// var arr []int
+	for _, i := range entry {
+		if i.GetOp() == t.OP_PUSH {
+			// Asm
+		} else if i.GetOp() == t.OP_PLUS {
+			// Asm
+		} else if i.GetOp() == t.OP_DUMP {
+			// Asm
+		} else if i.GetOp() == t.OP_MIN {
+			// Asm
 		} else {
 			fmt.Println("parsing error: Invalid syntax.")
 			os.Exit(1)
@@ -62,7 +81,11 @@ func main() {
 		switch os.Args[1] {
 		case "compile":
 			if len(os.Args) >= 3 {
-				compile(os.Args[2])
+				if strings.HasSuffix(os.Args[3], ".uf") || strings.HasSuffix(os.Args[3], ".uo") {
+					compile(os.Args[3])
+				} else {
+					fmt.Println("err: Please provide a valid file. (.uo, .uf)")
+				}
 			} else {
 				fmt.Println("err: Please provide a file for the parsing.")
 				fmt.Println("-> Usage: uni compile <file>")

@@ -10,7 +10,7 @@ import (
 )
 
 // Parse a file and return the Parse function with the red file as parameter
-func ParseFile(file string) []t.Token {
+func ParseFile(file string) []t.Tokens {
 	f, err := os.ReadFile(file)
 	if err != nil {
 		panic(err)
@@ -21,13 +21,13 @@ func ParseFile(file string) []t.Token {
 }
 
 // Parse a string array and append for each chars an operator to an array. Then, return the array
-func Parse(data []string) []t.Token {
-	var stack []t.Token
+func Parse(data []string) []t.Tokens {
+	var stack []t.Tokens
 
 	for _, i := range data {
 		switch i {
 		case "+":
-			fmt.Println("Plus")
+			fmt.Println()
 			stack = append(stack, t.Plus())
 		case "-":
 			fmt.Println("Min")
@@ -48,7 +48,7 @@ func Parse(data []string) []t.Token {
 }
 
 // Parse a line (string) and return the Parse function with the line passed as parameter
-func ParseLine(line string) []t.Token {
+func ParseLine(line string) []t.Tokens {
 	trimmed := strings.Split(line, " ")
 	return Parse(trimmed)
 }
