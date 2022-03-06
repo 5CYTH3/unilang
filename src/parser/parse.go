@@ -18,8 +18,6 @@ func ParseFile(file string) []t.Tokens {
 	return t.Tokenize(trimmed)
 }
 
-// Parse a string array and append for each chars an operator to an array. Then, return the array
-
 // Parse a line (string) and return the Parse function with the line passed as parameter
 func ParseLine(line string) []t.Tokens {
 	trimmed := strings.Split(line, " ")

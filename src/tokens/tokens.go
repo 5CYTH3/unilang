@@ -50,6 +50,7 @@ func Dump() Tokens {
 	return Tokens{OP_DUMP, 0}
 }
 
+// Parse a string array and append for each chars an operator to an array. Then, return the array
 func Tokenize(data []string) []Tokens {
 	var stack []Tokens
 	for _, i := range data {
