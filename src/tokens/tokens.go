@@ -54,15 +54,15 @@ func Dump() Tokens {
 }
 
 // Parse a string array and append for each chars an operator to an array. Then, return the array
-func TokenizeWord(word string) Tokens {
+func Tokenize(word string) Tokens {
 	if word == "+" {
 		return Plus()
 	} else if word == "-" {
 		return Min()
 	} else if word == "dmp" {
 		return Dump()
-	} else if num, err := strconv.Atoi(word); err == nil {
+	} else {
+		num, _ := strconv.Atoi(word)
 		return Push(num)
 	}
-	return Default()
 }

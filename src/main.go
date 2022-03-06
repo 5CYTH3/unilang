@@ -21,7 +21,7 @@ func pop(alist *[]int) int {
 
 // Compiling task. Takes array of Token as entry and prints out the result.
 func interpreter(entry []t.Tokens) {
-	var arr []int
+	arr := make([]int, 0)
 	for _, i := range entry {
 		if i.GetOp() == t.OP_PUSH {
 			arr = append(arr, i.GetValue())
@@ -36,9 +36,6 @@ func interpreter(entry []t.Tokens) {
 			a := pop(&arr)
 			b := pop(&arr)
 			arr = append(arr, a-b)
-		} else {
-			fmt.Println("parsing error: Invalid syntax.")
-			os.Exit(1)
 		}
 	}
 }
@@ -62,14 +59,10 @@ _start:
 			f.WriteString("")
 		} else if i.GetOp() == t.OP_PLUS {
 			// Asm
-			fmt.Println()
 		} else if i.GetOp() == t.OP_DUMP {
 			// Asm
 		} else if i.GetOp() == t.OP_MIN {
 			// Asm
-		} else {
-			fmt.Println("parsing error: Invalid syntax.")
-			os.Exit(1)
 		}
 	}
 	f.Close()
