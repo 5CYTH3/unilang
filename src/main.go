@@ -73,8 +73,10 @@ _start:
 		}
 	}
 	f.Close()
-	exec.Command("nasm", "-felf64", "out.asm")
-	exec.Command("ld", "-o", "out", "out.o")
+	o1, _ := exec.Command("nasm", "-f", "elf64", "out.asm").Output()
+	o2, _ := exec.Command("ld", "-o", "out", "out.o").Output()
+	fmt.Printf("%s", o1)
+	fmt.Printf("%s", o2)
 	// os.Remove("out.asm")
 	// os.Remove("out.o")
 }

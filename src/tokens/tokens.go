@@ -2,8 +2,6 @@ package tokens
 
 import (
 	"strconv"
-
-	c "github.com/fatih/color"
 )
 
 type Token int64
@@ -55,18 +53,12 @@ func Tokenize(data []string) []Tokens {
 	var stack []Tokens
 	for _, i := range data {
 		if i == "+" {
-			c.Red("Plus")
 			stack = append(stack, Plus())
 		} else if i == "-" {
-			c.Red("Min")
 			stack = append(stack, Min())
 		} else if i == "dmp" {
-			c.Red("Dumped")
 			stack = append(stack, Dump())
 		} else if num, err := strconv.Atoi(i); err == nil {
-			c.Red("Num check passed")
-			cyan := c.New(c.FgCyan).Add(c.Underline)
-			cyan.Println(num)
 			stack = append(stack, Push(num))
 		}
 	}
