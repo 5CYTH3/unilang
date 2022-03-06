@@ -26,24 +26,21 @@ func Parse(data []string) []t.Tokens {
 	var stack []t.Tokens
 
 	for _, i := range data {
-		switch i {
-		case "+":
+
+		if i == "+" {
 			c.Red("Plus")
 			stack = append(stack, t.Plus())
-		case "-":
+		} else if i == "-" {
 			c.Red("Min")
 			stack = append(stack, t.Min())
-		case "dmp":
+		} else if i == "dmp" {
 			c.Red("Dumped")
 			stack = append(stack, t.Dump())
-		default:
-			c.Red("Num called")
-			if num, err := strconv.Atoi(i); err == nil {
-				c.Red("Num check passed")
-				cyan := c.New(c.FgCyan).Add(color.Underline)
-				cyan.Println(num)
-				stack = append(stack, t.Push(num))
-			}
+		} else if num, err := strconv.Atoi(i); err == nil {
+			c.Red("Num check passed")
+			cyan := c.New(c.FgCyan).Add(color.Underline)
+			cyan.Println(num)
+			stack = append(stack, t.Push(num))
 		}
 	}
 	return stack
