@@ -1,3 +1,4 @@
 /pkg/
 /test/
 /.vscode/
+**/*/out.asm

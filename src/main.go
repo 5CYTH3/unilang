@@ -19,7 +19,6 @@ func pop(alist *[]int) int {
 	return rv
 }
 
-// Compiling task. Takes array of Token as entry and prints out the result.
 func interpreter(entry []t.Tokens) {
 	arr := make([]int, 0)
 	for _, i := range entry {
@@ -41,24 +40,21 @@ func interpreter(entry []t.Tokens) {
 }
 
 func GenerateAssembly(entry []t.Tokens) {
-	// var arr []int
 	f, _ := os.Create("out.asm")
-	f.WriteString(`%define SYS_EXIT 60
+	f.WriteString(`segment .text
+global _start
 
-segment .text
-	global _start
-
-_start:
-	mov rax, SYS_EXIT
-	mov rdi, 69
-	syscall
-	ret
-	`)
+_start:` + "\n")
 	for _, i := range entry {
 		if i.GetOp() == t.OP_PUSH {
-			f.WriteString("")
+			f.WriteString(fmt.Sprintf("	;; -- pushing value %d --\n", i.GetValue()))
+			f.WriteString(fmt.Sprintf("	push %d\n", i.GetValue()))
 		} else if i.GetOp() == t.OP_PLUS {
-			// Asm
+			f.WriteString(`	;; -- adding 2 values -
+	pop rax
+	pop rbx
+	add rax, rbx
+	push rax`)
 		} else if i.GetOp() == t.OP_DUMP {
 			// Asm
 		} else if i.GetOp() == t.OP_MIN {
@@ -70,13 +66,8 @@ _start:
 	o2, _ := exec.Command("ld", "-o", "out", "out.o").Output()
 	fmt.Printf("%s", o1)
 	fmt.Printf("%s", o2)
-	defer os.Remove("out.asm")
+	// defer os.Remove("out.asm")
 	defer os.Remove("out.o")
-}
-
-// Interpret the file from ParseFile function
-func compile(arg string) {
-	interpreter(p.ParseFile(arg))
 }
 
 // Interpret the user input from ParseLine function
@@ -96,7 +87,6 @@ func main() {
 		case "build":
 			if len(os.Args) >= 3 {
 				if strings.HasSuffix(os.Args[2], ".uf") || strings.HasSuffix(os.Args[3], ".uo") {
-					compile(os.Args[2])
 					GenerateAssembly(p.ParseFile(os.Args[2]))
 				} else {
 					fmt.Println("err: Please provide a valid file. (.uo, .uf)")
