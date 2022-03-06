@@ -8,14 +8,16 @@ import (
 )
 
 // Parse a file and return the Parse function with the red file as parameter
-func ParseFile(file string) []t.Tokens {
+func ParseFile(file string) t.Tokens {
 	f, err := os.ReadFile(file)
 	if err != nil {
 		panic(err)
 	}
 	t_file := string(f)
 	trimmed := strings.Split(t_file, " ")
-	return t.Tokenize(trimmed)
+	for _, i := range trimmed {
+		return t.TokenizeWord(i)
+	}
 }
 
 // Parse a line (string) and return the Parse function with the line passed as parameter

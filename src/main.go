@@ -77,8 +77,8 @@ _start:
 	o2, _ := exec.Command("ld", "-o", "out", "out.o").Output()
 	fmt.Printf("%s", o1)
 	fmt.Printf("%s", o2)
-	// os.Remove("out.asm")
-	// os.Remove("out.o")
+	defer os.Remove("out.asm")
+	defer os.Remove("out.o")
 }
 
 // Interpret the file from ParseFile function
