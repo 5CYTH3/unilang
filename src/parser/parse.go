@@ -5,7 +5,6 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/fatih/color"
 	c "github.com/fatih/color"
 	t "scythe.com/uni/tokens"
 )
@@ -24,9 +23,7 @@ func ParseFile(file string) []t.Tokens {
 // Parse a string array and append for each chars an operator to an array. Then, return the array
 func Parse(data []string) []t.Tokens {
 	var stack []t.Tokens
-
 	for _, i := range data {
-
 		if i == "+" {
 			c.Red("Plus")
 			stack = append(stack, t.Plus())
@@ -38,7 +35,7 @@ func Parse(data []string) []t.Tokens {
 			stack = append(stack, t.Dump())
 		} else if num, err := strconv.Atoi(i); err == nil {
 			c.Red("Num check passed")
-			cyan := c.New(c.FgCyan).Add(color.Underline)
+			cyan := c.New(c.FgCyan).Add(c.Underline)
 			cyan.Println(num)
 			stack = append(stack, t.Push(num))
 		}

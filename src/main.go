@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
 	p "scythe.com/uni/parser"
 	t "scythe.com/uni/tokens"
 )
@@ -16,7 +17,7 @@ func pop(alist *[]int) int {
 	*alist = (*alist)[:f-1]
 	return rv
 }
-	
+
 // Compiling task. Takes array of Token as entry and prints out the result.
 func interpreter(entry []t.Tokens) {
 	var arr []int
@@ -48,7 +49,7 @@ func GenerateAssembly(entry []t.Tokens) {
 			// Asm
 		} else if i.GetOp() == t.OP_PLUS {
 			// Asm
-			fmt.Println()	
+			fmt.Println()
 		} else if i.GetOp() == t.OP_DUMP {
 			// Asm
 		} else if i.GetOp() == t.OP_MIN {
@@ -79,19 +80,23 @@ func sim() {
 func main() {
 	if len(os.Args) >= 2 {
 		switch os.Args[1] {
-		case "compile":
+		case "build":
 			if len(os.Args) >= 3 {
-				if strings.HasSuffix(os.Args[3], ".uf") || strings.HasSuffix(os.Args[3], ".uo") {
-					compile(os.Args[3])
+				if strings.HasSuffix(os.Args[2], ".uf") || strings.HasSuffix(os.Args[3], ".uo") {
+					compile(os.Args[2])
 				} else {
 					fmt.Println("err: Please provide a valid file. (.uo, .uf)")
+					os.Exit(1)
 				}
 			} else {
 				fmt.Println("err: Please provide a file for the parsing.")
 				fmt.Println("-> Usage: uni compile <file>")
 			}
-		case "test":
+		case "run":
 			sim()
+		default:
+			fmt.Println("err: The command specified is not valid.")
+			os.Exit(1)
 		}
 	} else {
 		fmt.Println(`
