@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"os/exec"
 	"strings"
 
 	p "scythe.com/uni/parser"
@@ -44,9 +45,21 @@ func interpreter(entry []t.Tokens) {
 
 func GenerateAssembly(entry []t.Tokens) {
 	// var arr []int
+	f, _ := os.Create("out.asm")
+	f.WriteString(`%define SYS_EXIT 60
+
+segment .text
+	global _start
+
+_start:
+	mov rax, SYS_EXIT
+	mov rdi, 69
+	syscall
+	ret
+	`)
 	for _, i := range entry {
 		if i.GetOp() == t.OP_PUSH {
-			// Asm
+			f.WriteString("")
 		} else if i.GetOp() == t.OP_PLUS {
 			// Asm
 			fmt.Println()
@@ -59,6 +72,11 @@ func GenerateAssembly(entry []t.Tokens) {
 			os.Exit(1)
 		}
 	}
+	f.Close()
+	exec.Command("nasm", "-felf64", "out.asm")
+	exec.Command("ld", "-o", "out", "out.o")
+	// os.Remove("out.asm")
+	// os.Remove("out.o")
 }
 
 // Interpret the file from ParseFile function
@@ -84,6 +102,7 @@ func main() {
 			if len(os.Args) >= 3 {
 				if strings.HasSuffix(os.Args[2], ".uf") || strings.HasSuffix(os.Args[3], ".uo") {
 					compile(os.Args[2])
+					GenerateAssembly(p.ParseFile(os.Args[2]))
 				} else {
 					fmt.Println("err: Please provide a valid file. (.uo, .uf)")
 					os.Exit(1)

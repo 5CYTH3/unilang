@@ -8,3 +8,4 @@ _start:
 	mov rdi, 69
 	syscall
 	ret
+	
