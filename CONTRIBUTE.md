@@ -5,12 +5,12 @@ development of uni (i.e. main.go:65).
 
 ## Getting Started
 
-* [MacOS/Linux](#linux)
+* [MacOS / Linux](#macos-/-linux)
 * [Windows](#windows)
 
-###<a name="linux"></a> MacOS / Linux
+### MacOS / Linux
 
-###<a name="windows"></a> Windows
+### Windows
 
 Please make sure that you have [chocolatey](https://chocolatey.org/) and [go](https://go.dev/) installed on your computer.
 To install the project, just do these following steps :
