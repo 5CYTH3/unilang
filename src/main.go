@@ -86,7 +86,7 @@ func main() {
 		switch os.Args[1] {
 		case "build":
 			if len(os.Args) >= 3 {
-				if strings.HasSuffix(os.Args[2], ".uf") || strings.HasSuffix(os.Args[3], ".uo") {
+				if strings.HasSuffix(os.Args[2], ".uf") || strings.HasSuffix(os.Args[2], ".uo") {
 					GenerateAssembly(p.ParseFile(os.Args[2]))
 				} else {
 					fmt.Println("err: Please provide a valid file. (.uo, .uf)")
