@@ -94,7 +94,7 @@ func main() {
 				}
 			} else {
 				fmt.Println("err: Please provide a file for the parsing.")
-				fmt.Println("-> Usage: uni compile <file>")
+				fmt.Println("-> Usage: uni run <file>")
 			}
 		case "run":
 			sim()
@@ -107,8 +107,8 @@ func main() {
 Usage: uni <command> [argument]
 
 Commands:
-	- test
-	- compile [file]
+	- run
+	- build [file]
 	`)
 	}
 }
