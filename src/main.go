@@ -51,10 +51,14 @@ _start:` + "\n")
 			f.WriteString(fmt.Sprintf("	push %d\n", i.GetValue()))
 		} else if i.GetOp() == t.OP_PLUS {
 			f.WriteString(`	;; -- adding 2 values -
-	pop rax
-	pop rbx
-	add rax, rbx
-	push rax`)
+	mov     rbp, rsp
+	mov     [rbp-4], edi
+	mov     [rbp-8], esi
+	mov     edx, [rbp-4]
+	mov     eax, [rbp-8]
+	add     eax, edx
+	pop     rbp
+	ret`)
 		} else if i.GetOp() == t.OP_DUMP {
 			// Asm
 		} else if i.GetOp() == t.OP_MIN {
