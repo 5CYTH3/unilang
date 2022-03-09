@@ -7,8 +7,8 @@ import (
 	"os/exec"
 	"strings"
 
-	p "scythe.com/uni/parser"
-	t "scythe.com/uni/tokens"
+	p "scythe.com/uni/src/parser"
+	t "scythe.com/uni/src/tokens"
 )
 
 // Pop and return last element of a list
