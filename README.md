@@ -4,6 +4,8 @@ For a file ending with .uo, your code will be Object Oriented. For a file ending
 
 The compiler that I am trying to build is actually made in Golang. It's a fast, readable and garbage-collected language.
 
+:warning: If you are a Go developer and interested in contributing to the project, go check the [CONTRIBUTE.md](CONTRIBUTE.md) file.
+
 ## Syntax
 
 Here are few examples of the syntax:

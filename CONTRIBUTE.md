@@ -5,22 +5,22 @@ development of uni (i.e. main.go:65).
 
 ## Getting Started
 
-* [MacOS/Linux](#linux)
+* [MacOS / Linux](#macos-/-linux)
 * [Windows](#windows)
 
-###<a name="linux"></a>MacOS / Linux
+### MacOS / Linux
 
-###<a name="windows"></a>Windows
+### Windows
 
-Please make sure that you have [chocolatey](https://chocolatey.org/) and [go](https://go.dev/) installed on your computer.
+Please make sure that you have [scoop](https://scoop.sh/) and [go](https://go.dev/) installed on your computer (you can use ```install_contribution_req.bat``` to install them).
 To install the project, just do these following steps :
 
 ```
 cd yourdirectory
-choco install make
+scoop install make
 git clone https://github.com/5CYTH3/unilang.git
 cd unilang
-make intall-windows
+make install-windows
 ```
 
 Building the project would'nt have been easier ! :
