@@ -20,7 +20,7 @@ cd yourdirectory
 choco install make
 git clone https://github.com/5CYTH3/unilang.git
 cd unilang
-make intall-windows
+make install-windows
 ```
 
 Building the project would'nt have been easier ! :
