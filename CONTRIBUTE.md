@@ -12,12 +12,12 @@ development of uni (i.e. main.go:65).
 
 ### Windows
 
-Please make sure that you have [chocolatey](https://chocolatey.org/) and [go](https://go.dev/) installed on your computer.
+Please make sure that you have [scoop](https://scoop.sh/) and [go](https://go.dev/) installed on your computer (you can use ```install_contribution_req.bat``` to install them).
 To install the project, just do these following steps :
 
 ```
 cd yourdirectory
-choco install make
+scoop install make
 git clone https://github.com/5CYTH3/unilang.git
 cd unilang
 make install-windows
