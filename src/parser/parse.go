@@ -4,7 +4,7 @@ import (
 	"os"
 	"strings"
 
-	t "scythe.com/uni/tokens"
+	t "scythe.com/uni/src/tokens"
 )
 
 // Parse a file and return the Parse function with the red file as parameter
