@@ -94,7 +94,7 @@ func main() {
 				}
 			} else {
 				fmt.Println("err: Please provide a file for the parsing.")
-				fmt.Println("-> Usage: uni run <file>")
+				fmt.Println("-> Usage: uni build <file>")
 			}
 		case "run":
 			sim()
