@@ -12,8 +12,10 @@ type Tokens struct {
 
 // Enum of all operators
 const (
-	OP_PLUS Token = iota
-	OP_MIN
+	OP_PLUS Token = iota // addition
+	OP_MIN               // minus
+	OP_MUL               // multiplication
+	OP_DIV               // division
 	OP_PUSH
 	OP_DUMP
 	OP_DEFAULT
@@ -43,6 +45,16 @@ func Min() Tokens {
 	return Tokens{OP_MIN, 1}
 }
 
+// Return a Token with multiplication operator and value code 0
+func Mul() Tokens {
+	return Tokens{OP_MUL, 1}
+}
+
+// Return a Token with division operator and value code 0
+func Div() Tokens {
+	return Tokens{OP_DIV, 1}
+}
+
 // Return a Token with push operator and value passed in parameter
 func Push(value int) Tokens {
 	return Tokens{OP_PUSH, value}
@@ -59,6 +71,10 @@ func Tokenize(word string) Tokens {
 		return Plus()
 	} else if word == "-" {
 		return Min()
+	} else if word == "*" {
+		return Mul()
+	} else if word == "/" {
+		return Div()
 	} else if word == "dmp" {
 		return Dump()
 	} else {
