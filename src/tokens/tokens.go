@@ -78,7 +78,10 @@ func Tokenize(word string) Tokens {
 	} else if word == "dmp" {
 		return Dump()
 	} else {
-		num, _ := strconv.Atoi(word)
-		return Push(num)
+		num, err := strconv.Atoi(word)
+		if err != nil {
+			return Push(num)
+		}
 	}
+	return Default()
 }
