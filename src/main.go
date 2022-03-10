@@ -84,6 +84,7 @@ func sim() {
 func main() {
 	if len(os.Args) >= 2 {
 		switch os.Args[1] {
+		// Build command
 		case "build":
 			if len(os.Args) >= 3 {
 				if strings.HasSuffix(os.Args[2], ".uf") || strings.HasSuffix(os.Args[2], ".uo") {
@@ -92,14 +93,16 @@ func main() {
 					fmt.Println("err: Please provide a valid file. (.uo, .uf)")
 					os.Exit(1)
 				}
+				// Error
 			} else {
 				fmt.Println("err: Please provide a file for the parsing.")
 				fmt.Println("-> Usage: uni build <file>")
 			}
+		// Interpret
 		case "run":
 			sim()
 		default:
-			fmt.Println("err: The command specified is not valid.")
+			fmt.Println("err: The command " + "\"" + os.Args[1] + "\"" + " is not valid.")
 			os.Exit(1)
 		}
 	} else {
