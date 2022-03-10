@@ -42,7 +42,7 @@ func interpreter(entry []t.Tokens) {
 		} else if i.GetOp() == t.OP_DIV {
 			a := pop(&arr)
 			b := pop(&arr)
-			arr = append(arr, a/b)
+			arr = append(arr, b/a)
 		} else {
 			fmt.Printf("Invalid operator")
 		}
@@ -60,7 +60,7 @@ _start:` + "\n")
 			f.WriteString(fmt.Sprintf("	;; -- pushing value %d --\n", i.GetValue()))
 			f.WriteString(fmt.Sprintf("	push %d\n", i.GetValue()))
 		} else if i.GetOp() == t.OP_PLUS {
-			f.WriteString(`	;; -- adding 2 values -
+			f.WriteString(`	;; -- adding 2 values --
 	mov     rbp, rsp
 	mov     [rbp-4], edi
 	mov     [rbp-8], esi
