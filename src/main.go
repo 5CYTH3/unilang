@@ -35,6 +35,16 @@ func interpreter(entry []t.Tokens) {
 			a := pop(&arr)
 			b := pop(&arr)
 			arr = append(arr, a-b)
+		} else if i.GetOp() == t.OP_MUL {
+			a := pop(&arr)
+			b := pop(&arr)
+			arr = append(arr, a*b)
+		} else if i.GetOp() == t.OP_DIV {
+			a := pop(&arr)
+			b := pop(&arr)
+			arr = append(arr, a/b)
+		} else {
+			fmt.Printf("Invalid operator")
 		}
 	}
 }
