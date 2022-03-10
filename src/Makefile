@@ -2,9 +2,7 @@ test:
 	go test
 
 build:
-	env GOOS="linux" go build -o bin/uni main.go
-	go build -o bin/uni main.go GOOS="windows"
-	env GOOS="darwin" go build -o bin/uni main.go
+	go build -o bin/uni.exe main.go
 
 
 
