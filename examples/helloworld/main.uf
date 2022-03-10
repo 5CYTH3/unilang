@@ -1,8 +1,0 @@
-package main
-
-import "Std"
-
-func main(): void {
-    hw: string = "Hello World";
-    Std.print(string);
-}
