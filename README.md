@@ -10,7 +10,7 @@ The compiler that I am trying to build is actually made in Golang. It's a fast, 
 
 Here are few examples of the syntax:
 
-main.uf
+main.uf (examples/helloworld/main.uf)
 ```
 package main
 
@@ -22,7 +22,7 @@ func main(): void {
 }
 ```
 
-main.uo
+main.uo (examples/helloworld/main.uo)
 ```
 package main
 
