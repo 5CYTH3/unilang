@@ -35,6 +35,16 @@ func interpreter(entry []t.Tokens) {
 			a := pop(&arr)
 			b := pop(&arr)
 			arr = append(arr, a-b)
+		} else if i.GetOp() == t.OP_MUL {
+			a := pop(&arr)
+			b := pop(&arr)
+			arr = append(arr, a*b)
+		} else if i.GetOp() == t.OP_DIV {
+			a := pop(&arr)
+			b := pop(&arr)
+			arr = append(arr, a/b)
+		} else {
+			fmt.Printf("Invalid operator")
 		}
 	}
 }
@@ -51,10 +61,14 @@ _start:` + "\n")
 			f.WriteString(fmt.Sprintf("	push %d\n", i.GetValue()))
 		} else if i.GetOp() == t.OP_PLUS {
 			f.WriteString(`	;; -- adding 2 values -
-	pop rax
-	pop rbx
-	add rax, rbx
-	push rax`)
+	mov     rbp, rsp
+	mov     [rbp-4], edi
+	mov     [rbp-8], esi
+	mov     edx, [rbp-4]
+	mov     eax, [rbp-8]
+	add     eax, edx
+	pop     rbp
+	ret`)
 		} else if i.GetOp() == t.OP_DUMP {
 			// Asm
 		} else if i.GetOp() == t.OP_MIN {
@@ -84,6 +98,7 @@ func sim() {
 func main() {
 	if len(os.Args) >= 2 {
 		switch os.Args[1] {
+		// Build command
 		case "build":
 			if len(os.Args) >= 3 {
 				if strings.HasSuffix(os.Args[2], ".uf") || strings.HasSuffix(os.Args[2], ".uo") {
@@ -92,14 +107,16 @@ func main() {
 					fmt.Println("err: Please provide a valid file. (.uo, .uf)")
 					os.Exit(1)
 				}
+				// Error
 			} else {
 				fmt.Println("err: Please provide a file for the parsing.")
 				fmt.Println("-> Usage: uni build <file>")
 			}
+		// Interpret
 		case "run":
 			sim()
 		default:
-			fmt.Println("err: The command specified is not valid.")
+			fmt.Println("err: The command " + "\"" + os.Args[1] + "\"" + " is not valid.")
 			os.Exit(1)
 		}
 	} else {
