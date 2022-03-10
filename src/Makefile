@@ -2,7 +2,11 @@ test:
 	go test
 
 build:
-	go build -o bin/uni.exe
+	env GOOS="linux" go build -o bin/uni main.go
+	go build -o bin/uni main.go GOOS="windows"
+	env GOOS="darwin" go build -o bin/uni main.go
+
+
 
 install-windows:
 	choco install nasm
