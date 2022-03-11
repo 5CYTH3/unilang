@@ -9,7 +9,7 @@ import (
 )
 
 // Pop and return last element of a list
-func pop(alist *[]int) int {
+func pop[K comparable, V []int | []t.Tokens](alist *v) V[] {
 	f := len(*alist)
 	rv := (*alist)[f-1]
 	*alist = (*alist)[:f-1]
@@ -20,23 +20,17 @@ func InfixToRPN(arr []t.Tokens) []t.Tokens {
 	stack := make([]t.Tokens, 0)
 	for i := 0; i < len(arr)-1; i++ {
 		if arr[i].GetOp() == t.OP_PUSH {
-
-		} else if arr[i].GetOp() == t.OP_PLUS {
-			
-		} else if arr[i].GetOp() == t.OP_DUMP {
-
-		} else if arr[i].GetOp() == t.OP_MIN {
-
-		} else if arr[i].GetOp() == t.OP_MUL {
-
-		} else if arr[i].GetOp() == t.OP_DIV {
-
+			stack = append(stack, arr[i])
+		} else if arr[i].GetOp() == t.L_PAREN {
+			stack = append(stack, arr[i])
+		} else if arr[i].GetOp() == t.R_PAREN {
+			for x = pop(&stack) != 
 		} else {
 			fmt.Printf("Invalid operator")
 		}
 	}
 
-	return arr
+	return stack
 }
 
 // Parse a file and return the an array of tokens from a splitted string
