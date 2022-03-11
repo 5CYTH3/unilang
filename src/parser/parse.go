@@ -9,7 +9,7 @@ import (
 )
 
 // Pop and return last element of a list
-/* func pop[T any](alist *[]T) T {
+/* func pop[T any] (alist *[]T) T {
 	f := len(*alist)
 	rv := (*alist)[f-1]
 	*alist = (*alist)[:f-1]
