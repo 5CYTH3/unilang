@@ -9,7 +9,14 @@ import (
 )
 
 // Pop and return last element of a list
-func pop[V int | t.Tokens](alist *[]V) V {
+/* func pop[T any](alist *[]T) T {
+	f := len(*alist)
+	rv := (*alist)[f-1]
+	*alist = (*alist)[:f-1]
+	return rv
+}*/
+
+func pop(alist *[]t.Tokens) t.Tokens {
 	f := len(*alist)
 	rv := (*alist)[f-1]
 	*alist = (*alist)[:f-1]
@@ -24,7 +31,7 @@ func InfixToRPN(arr []t.Tokens) []t.Tokens {
 		} else if arr[i].GetOp() == t.L_PAREN {
 			stack = append(stack, arr[i])
 		} else if arr[i].GetOp() == t.R_PAREN {
-			for x = pop[int](&stack) != 
+			// for x = pop[int](&stack) !=
 		} else {
 			fmt.Printf("Invalid operator")
 		}
