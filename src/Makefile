@@ -2,7 +2,7 @@ test:
 	go test
 
 build:
-	go build -o bin/uni.exe main.go
+	go build -o ../bin/uni.exe main.go
 
 install-windows:
 	choco install nasm

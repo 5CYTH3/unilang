@@ -19,6 +19,8 @@ const (
 	OP_PUSH
 	OP_DUMP
 	OP_DEFAULT
+	L_PAREN
+	R_PAREN
 )
 
 // Return the Operator of the "Token" struct
@@ -63,6 +65,14 @@ func Push(value int) Tokens {
 // Return a Token with DUMP operator and value code 0
 func Dump() Tokens {
 	return Tokens{OP_DUMP, 1}
+}
+
+func L_Paren() Tokens {
+	return Tokens{L_PAREN, 2}
+}
+
+func R_Paren() Tokens {
+	return Tokens{R_PAREN, 2}
 }
 
 // Parse a string array and append for each chars an operator to an array. Then, return the array
