@@ -4,8 +4,6 @@ test:
 build:
 	go build -o bin/uni.exe main.go
 
-
-
 install-windows:
 	choco install nasm
 	choco install mingw
