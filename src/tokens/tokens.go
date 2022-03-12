@@ -6,8 +6,9 @@ import (
 
 type Token int64
 type Tokens struct {
-	op    Token
-	value int
+	op       Token
+	value    int64
+	priority int8
 }
 
 // Enum of all operators
@@ -29,50 +30,54 @@ func (t *Tokens) GetOp() Token {
 }
 
 // Return the int value of the "Token" struct
-func (t *Tokens) GetValue() int {
+func (t *Tokens) GetValue() int64 {
 	return t.value
+}
+
+func (t *Tokens) GetPriority() int8 {
+	return t.priority
 }
 
 // Return a Token with plus operator and value code 0
 func Plus() Tokens {
-	return Tokens{OP_PLUS, 1}
+	return Tokens{OP_PLUS, 0, 1}
 }
 
 func Default() Tokens {
-	return Tokens{OP_DEFAULT, 0}
+	return Tokens{OP_DEFAULT, 0, -1}
 }
 
 // Return a Token with minus operator and value code 0
 func Min() Tokens {
-	return Tokens{OP_MIN, 1}
+	return Tokens{OP_MIN, 0, 1}
 }
 
 // Return a Token with multiplication operator and value code 0
 func Mul() Tokens {
-	return Tokens{OP_MUL, 1}
+	return Tokens{OP_MUL, 0, 2}
 }
 
 // Return a Token with division operator and value code 0
 func Div() Tokens {
-	return Tokens{OP_DIV, 1}
+	return Tokens{OP_DIV, 0, 2}
 }
 
 // Return a Token with push operator and value passed in parameter
-func Push(value int) Tokens {
-	return Tokens{OP_PUSH, value}
+func Push(value int64) Tokens {
+	return Tokens{OP_PUSH, value, 0}
 }
 
 // Return a Token with DUMP operator and value code 0
 func Dump() Tokens {
-	return Tokens{OP_DUMP, 1}
+	return Tokens{OP_DUMP, 0, 4}
 }
 
 func L_Paren() Tokens {
-	return Tokens{L_PAREN, 2}
+	return Tokens{L_PAREN, 0, 0}
 }
 
 func R_Paren() Tokens {
-	return Tokens{R_PAREN, 2}
+	return Tokens{R_PAREN, 0, 0}
 }
 
 // Parse a string array and append for each chars an operator to an array. Then, return the array
@@ -93,6 +98,6 @@ func Tokenize(word string) Tokens {
 		return R_Paren()
 	} else {
 		num, _ := strconv.Atoi(word)
-		return Push(num)
+		return Push(int64(num))
 	}
 }

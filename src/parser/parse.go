@@ -6,40 +6,52 @@ import (
 	"strings"
 
 	t "scythe.com/uni/src/tokens"
+	"scythe.com/uni/src/util"
 )
 
-// Pop and return last element of a list
-func pop[T any](alist *[]T) T {
-	f := len(*alist)
-	rv := (*alist)[f-1]
-	*alist = (*alist)[:f-1]
-	return rv
-}
-
-/*
-func pop(alist *[]t.Tokens) t.Tokens {
-	f := len(*alist)
-	rv := (*alist)[f-1]
-	*alist = (*alist)[:f-1]
-	return rv
-}
-*/
-
 func InfixToRPN(arr []t.Tokens) []t.Tokens {
-	stack := make([]t.Tokens, 0)
-	for i := 0; i < len(arr)-1; i++ {
+	var stack util.Stack
+	var stackArray []t.Tokens
+	for i := 0; i < len(arr); i++ {
 		if arr[i].GetOp() == t.OP_PUSH {
-			stack = append(stack, arr[i])
+			j := i
+			for ; j < len(arr) && arr[j].GetOp() == t.OP_PUSH; j++ {
+				fmt.Println(arr[i])
+				stackArray = append(stackArray, arr[j])
+			}
+			i = j - 1
+
 		} else if arr[i].GetOp() == t.L_PAREN {
-			stack = append(stack, arr[i])
+			stack.Push(arr[i])
 		} else if arr[i].GetOp() == t.R_PAREN {
-			// for x = pop[int](&stack) !=
+			for !stack.Empty() {
+				lrp := stack.Top()
+				if lrp.GetOp() == t.L_PAREN {
+					break
+				}
+				stackArray = append(stackArray, lrp)
+				stack.Pop()
+
+			}
+			stack.Pop()
+		} else if arr[i].GetOp() == t.OP_DUMP {
+			fmt.Println(arr[i])
+			stackArray = append(stackArray, arr[i])
 		} else {
-			fmt.Printf("Invalid operator")
+			for !stack.Empty() {
+				top := stack.Top()
+				if top == t.L_Paren() || !(top.GetPriority() >= arr[i].GetPriority()) {
+					fmt.Println(arr[i])
+					break
+				}
+				stackArray = append(stackArray, top)
+				stack.Pop()
+			}
+			stack.Push(arr[i])
 		}
 	}
-
-	return stack
+	fmt.Println(stackArray)
+	return stackArray
 }
 
 // Parse a file and return the an array of tokens from a splitted string
@@ -61,6 +73,7 @@ func ParseFile(file string) []t.Tokens {
 	for _, i := range splitted {
 		arr = append(arr, t.Tokenize(i))
 	}
+
 	return arr
 }
 

@@ -1,7 +1,7 @@
 test:
 	go test
 
-build:
+build-go:
 	go build -o ../bin/uni.exe main.go
 
 install-windows:

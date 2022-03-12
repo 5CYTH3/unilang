@@ -6,6 +6,7 @@ import (
 	"os/exec"
 
 	t "scythe.com/uni/src/tokens"
+	"scythe.com/uni/src/util"
 )
 
 func GenerateAssembly(entry []t.Tokens) {
@@ -36,4 +37,34 @@ _start:` + "\n")
 	fmt.Printf("%s", o2)
 	// defer os.Remove("out.asm")
 	defer os.Remove("out.o")
+}
+
+func Simulate(entry []t.Tokens) {
+	arr := make([]int, 0)
+	for _, i := range entry {
+		if i.GetOp() == t.OP_PUSH {
+			arr = append(arr, int(i.GetValue()))
+		} else if i.GetOp() == t.OP_PLUS {
+			a := util.Pop(&arr)
+			b := util.Pop(&arr)
+			arr = append(arr, a+b)
+		} else if i.GetOp() == t.OP_DUMP {
+			a := util.Pop(&arr)
+			fmt.Println(a)
+		} else if i.GetOp() == t.OP_MIN {
+			a := util.Pop(&arr)
+			b := util.Pop(&arr)
+			arr = append(arr, a-b)
+		} else if i.GetOp() == t.OP_MUL {
+			a := util.Pop(&arr)
+			b := util.Pop(&arr)
+			arr = append(arr, a*b)
+		} else if i.GetOp() == t.OP_DIV {
+			a := util.Pop(&arr)
+			b := util.Pop(&arr)
+			arr = append(arr, b/a)
+		} else {
+			fmt.Printf("Invalid operator")
+		}
+	}
 }
