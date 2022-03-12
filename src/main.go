@@ -13,6 +13,7 @@ import (
 // Interpret the user input from ParseLine function
 func sim() {
 	reader := bufio.NewScanner(os.Stdin)
+	fmt.Printf("Unilang. Development version. Report bugs at https://github.com/5CYTH3/unilang/issues\n")
 	for {
 		fmt.Printf("$uni-> ")
 		reader.Scan()

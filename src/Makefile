@@ -5,8 +5,8 @@ build-go:
 	go build -o ../bin/uni.exe main.go
 
 install-windows:
-	choco install nasm
-	choco install mingw
+	scoop install nasm
+	scoop install mingw
 
 install-linux:
 	curl -O https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/nasm-2.15.05.tar.gz
