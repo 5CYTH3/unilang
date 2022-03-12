@@ -12,7 +12,7 @@ development of uni (i.e. main.go:65).
 
 ### Windows
 
-Please make sure that you have [scoop](https://scoop.sh/) and [go](https://go.dev/) installed on your computer (you can use ```install_contribution_req.bat``` to install them).
+Please make sure that you have [scoop](https://scoop.sh/) and [go](https://go.dev/) **1.18.1** installed on your computer (you can use ```install_contribution_req.bat``` to install them).
 To install the project, just do these following steps :
 
 ```
