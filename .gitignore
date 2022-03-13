@@ -2,3 +2,4 @@
 /test/
 /.vscode/
 **/*/out.asm
+**/*/out
