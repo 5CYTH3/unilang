@@ -18,16 +18,23 @@ _start:` + "\n")
 	for _, i := range entry {
 		if i.GetOp() == t.OP_PUSH {
 			f.WriteString(fmt.Sprintf("	;; -- pushing value %d --\n", i.GetValue()))
-			f.WriteString(fmt.Sprintf("	push rax, %d\n", i.GetValue()))
+			f.WriteString(fmt.Sprintf("	PUSH RAX, %d\n", i.GetValue()))
 		} else if i.GetOp() == t.OP_PLUS {
 			f.WriteString(`	;; -- adding 2 values --
-	add rax, rbx
-	pop     eax
-	ret`)
+	ADD RAX, RBX
+	POP EAX
+	RET`)
 		} else if i.GetOp() == t.OP_DUMP {
 			// Asm
 		} else if i.GetOp() == t.OP_MIN {
-			// Asm
+			f.WriteString(`	;; -- substracting 2 values --
+	SUB RAX, RBX
+	POP EAX
+	RET`)
+		} else if i.GetOp() == t.OP_MUL {
+			f.WriteString(` ;; -- multiplication is not supported --`)
+		} else if i.GetOp() == t.OP_DIV {
+			f.WriteString(` ;; -- division is not supported --`)
 		}
 	}
 	f.Close()

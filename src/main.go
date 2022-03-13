@@ -41,19 +41,19 @@ func main() {
 				if strings.HasSuffix(os.Args[2], ".uf") || strings.HasSuffix(os.Args[2], ".uo") {
 					b.GenerateAssembly(p.InfixToRPN(p.ParseFile(os.Args[2])))
 				} else {
-					fmt.Println("err: Please provide a valid file. (.uo, .uf)")
+					fmt.Println("err001: Please provide a valid file. (.uo, .uf)")
 					os.Exit(1)
 				}
 				// Error
 			} else {
-				fmt.Println("err: Please provide a file for the parsing.")
+				fmt.Println("err002: Please provide a file for the parsing.")
 				fmt.Println("-> Usage: uni build <file>")
 			}
 		// Interpret
 		case "run":
 			sim()
 		default:
-			fmt.Println("err: The command " + "\"" + os.Args[1] + "\"" + " is not valid.")
+			fmt.Println("err003: The command " + "\"" + os.Args[1] + "\"" + " is not valid.")
 			os.Exit(1)
 		}
 	} else {
