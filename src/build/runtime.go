@@ -18,10 +18,10 @@ main:` + "\n")
 	for _, i := range entry {
 		if i.GetOp() == t.OP_PUSH {
 			f.WriteString(fmt.Sprintf("	;; -- pushing value %d --\n", i.GetValue()))
-			f.WriteString(fmt.Sprintf("	PUSH RAX, %d\n", i.GetValue()))
+			f.WriteString(fmt.Sprintf("push rax, %d\n", i.GetValue()))
 		} else if i.GetOp() == t.OP_PLUS {
 			f.WriteString(`	;; -- adding 2 values --
-	ADD RAX, RBX
+	add rax, rbx
 	RET`)
 		} else if i.GetOp() == t.OP_DUMP {
 			// Asm
@@ -34,12 +34,12 @@ main:` + "\n")
 			f.WriteString(` ;; -- division is not supported --`)
 		}
 	}
-	f.WriteString(`	JMP @main_exit
+	f.WriteString(`jmp @main_exit
 `)
 	f.WriteString(`; -- file end --
 @main_exit:
-	POP EAX
-	RET`)
+	pop eax
+	ret`)
 	f.Close()
 	o1, _ := exec.Command("nasm", "-f", "elf64", "out.asm").Output()
 	o2, _ := exec.Command("ld", "-o", "out", "out.o").Output()
