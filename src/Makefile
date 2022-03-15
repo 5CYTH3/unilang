@@ -1,10 +1,8 @@
 test:
 	go test
 
-build:
-	go build -o bin/uni.exe main.go
-
-
+build-go:
+	go build -o ../bin/uni.exe main.go
 
 install-windows:
 	scoop install nasm
