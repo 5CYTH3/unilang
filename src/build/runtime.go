@@ -2,10 +2,10 @@ package build
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 
-	"github.com/prometheus/common/log"
 	t "scythe.com/uni/src/tokens"
 	"scythe.com/uni/src/util"
 )
@@ -13,22 +13,22 @@ import (
 func GenerateAssembly(entry []t.Tokens) {
 	f, _ := os.Create("out.asm")
 	f.WriteString(`segment .text
-global main
+	global _start
 
-main:` + "\n")
+_start:` + "\n")
 	for _, i := range entry {
 		if i.GetOp() == t.OP_PUSH {
 			f.WriteString(fmt.Sprintf("	;; -- pushing value %d --\n", i.GetValue()))
-			f.WriteString(fmt.Sprintf("push rax, %d\n", i.GetValue()))
+			f.WriteString(fmt.Sprintf("mov rax, %d\n", i.GetValue()))
 		} else if i.GetOp() == t.OP_PLUS {
 			f.WriteString(`	;; -- adding 2 values --
 	add rax, rbx
-	RET`)
+	ret`)
 		} else if i.GetOp() == t.OP_DUMP {
 			// Asm
 		} else if i.GetOp() == t.OP_MIN {
 			f.WriteString(`	;; -- substracting 2 values --
-	SUB RAX, RBX`)
+	sub rax, rbx`)
 		} else if i.GetOp() == t.OP_MUL {
 			f.WriteString(` ;; -- multiplication is not supported --`)
 		} else if i.GetOp() == t.OP_DIV {
@@ -39,7 +39,7 @@ main:` + "\n")
 `)
 	f.WriteString(`; -- file end --
 @main_exit:
-	pop eax
+	pop rax
 	ret`)
 	f.Close()
 	ExecuteCommand("nasm", "-f", "elf64", "out.asm")
@@ -52,7 +52,7 @@ func ExecuteCommand(cmdName string, cmdArg ...string) ([]byte, error) {
 	out, err := exec.Command(cmdName, cmdArg...).Output()
 	fmt.Printf("%s", out)
 	if err != nil {
-		log.Error(err)
+		log.Fatal(err)
 	}
 	return out, err
 }
