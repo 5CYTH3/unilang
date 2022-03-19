@@ -54,31 +54,38 @@ func InfixToRPN(arr []t.Tokens) []t.Tokens {
 	return stackArray
 }
 
+func CleanString(str string) []string {
+	str = strings.Replace(str, "\n", " ", -1)
+	strArr := strings.Split(str, " ")
+	return strArr
+}
+
+func LexString(input []string) []t.Tokens {
+	arr := make([]t.Tokens, 0)
+	for _, i := range input {
+		arr = append(arr, t.Tokenize(i))
+	}
+	return arr
+}
+
 // Parse a file and return the an array of tokens from a splitted string
-func ParseFile(file string) []t.Tokens {
+func LexFile(file string) []t.Tokens {
+	var arr []t.Tokens
 
 	// File reading -> splitted file
 	f, err := os.ReadFile(file)
-	if err != nil {
+	if err == nil {
+		t_file := string(f)
+		str := CleanString(t_file)
+		arr = LexString(str)
+	} else {
 		panic(err)
 	}
-	t_file := string(f)
-	t_file = strings.Replace(t_file, "\n", " ", -1)
-	splitted := strings.Split(t_file, " ")
-
-	// Array that'll hold all operators
-	var arr []t.Tokens
-
-	// Appending to "arr" all the tokens associated to words
-	for _, i := range splitted {
-		arr = append(arr, t.Tokenize(i))
-	}
-
 	return arr
 }
 
 // Parse a line (string) and return the Parse function with the line passed as parameter
-func ParseLine(line string) []t.Tokens {
+func LexLine(line string) []t.Tokens {
 	trimmed := strings.Split(line, " ")
 	var arr []t.Tokens
 
