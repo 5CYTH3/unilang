@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	b "scythe.com/uni/src/build"
-	p "scythe.com/uni/src/parser"
+	l "scythe.com/uni/src/lexer"
 )
 
 // Interpret the user input from ParseLine function
@@ -16,8 +16,8 @@ func sim() {
 	for {
 		fmt.Printf("$uni-> ")
 		reader.Scan()
-		stack := p.ParseLine(reader.Text())
-		fin := p.InfixToRPN(stack)
+		stack := l.ParseLine(reader.Text())
+		fin := l.InfixToRPN(stack)
 		b.Simulate(fin)
 	}
 }
@@ -38,7 +38,7 @@ func main() {
 		case "build":
 			if len(os.Args) >= 3 {
 				if strings.HasSuffix(os.Args[2], ".uf") || strings.HasSuffix(os.Args[2], ".uo") {
-					b.GenerateAssembly(p.InfixToRPN(p.ParseFile(os.Args[2])))
+					b.GenerateAssembly(l.InfixToRPN(l.LexFile(os.Args[2])))
 				} else {
 					fmt.Println("err: Please provide a valid file. (.uo, .uf)")
 					os.Exit(1)
