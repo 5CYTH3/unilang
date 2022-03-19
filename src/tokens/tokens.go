@@ -81,7 +81,7 @@ func R_Paren() Tokens {
 }
 
 // Parse a string array and append for each chars an operator to an array. Then, return the array
-func Tokenize(word string) Tokens {
+func ParseTokenAsOperator(word string) Tokens {
 	if word == "+" {
 		return Plus()
 	} else if word == "-" {
