@@ -5,19 +5,15 @@ import (
 	"strings"
 
 	t "scythe.com/uni/src/tokens"
+	"scythe.com/uni/src/util"
 )
 
-/*
 func InfixToRPN(arr []t.Tokens) []t.Tokens {
 	var stack util.Stack
 	var stackArray []t.Tokens
 	for i := 0; i < len(arr); i++ {
 		if arr[i].GetOp() == t.OP_PUSH {
-			j := i
-			for ; j < len(arr) && arr[j].GetOp() == t.OP_PUSH; j++ {
-				stackArray = append(stackArray, arr[j])
-			}
-			i = j - 1
+			stackArray = append(stackArray, arr[i])
 
 		} else if arr[i].GetOp() == t.L_PAREN {
 			stack.Push(arr[i])
@@ -48,7 +44,6 @@ func InfixToRPN(arr []t.Tokens) []t.Tokens {
 	}
 	return stackArray
 }
-*/
 
 // Split and trim the given string. Return the splitted string
 func CleanString(str string) []string {

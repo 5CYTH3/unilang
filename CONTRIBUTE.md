@@ -20,11 +20,11 @@ cd yourdirectory
 scoop install make
 git clone https://github.com/5CYTH3/unilang.git
 cd unilang
-make install-windows
+make install-windows -C src
 ```
 
 Building the project would'nt have been easier ! :
 
 ```
-make build
+make build-go -C src
 ```
