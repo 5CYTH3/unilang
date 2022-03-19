@@ -2,5 +2,5 @@
 /test/
 /.vscode/
 **/*/out.asm
-**/*/uni.*
-**/*/test.*
+**/*/out
+test.*

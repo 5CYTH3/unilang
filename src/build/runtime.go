@@ -13,24 +13,34 @@ import (
 func GenerateAssembly(entry []t.Tokens) {
 	f, _ := os.Create("out.asm")
 	f.WriteString(`segment .text
-global _start
+global main
 
-_start:` + "\n")
+main:` + "\n")
 	for _, i := range entry {
 		if i.GetOp() == t.OP_PUSH {
 			f.WriteString(fmt.Sprintf("	;; -- pushing value %d --\n", i.GetValue()))
-			f.WriteString(fmt.Sprintf("	push rax, %d\n", i.GetValue()))
+			f.WriteString(fmt.Sprintf("push rax, %d\n", i.GetValue()))
 		} else if i.GetOp() == t.OP_PLUS {
 			f.WriteString(`	;; -- adding 2 values --
 	add rax, rbx
-	pop     eax
-	ret`)
+	RET`)
 		} else if i.GetOp() == t.OP_DUMP {
 			// Asm
 		} else if i.GetOp() == t.OP_MIN {
-			// Asm
+			f.WriteString(`	;; -- substracting 2 values --
+	SUB RAX, RBX`)
+		} else if i.GetOp() == t.OP_MUL {
+			f.WriteString(` ;; -- multiplication is not supported --`)
+		} else if i.GetOp() == t.OP_DIV {
+			f.WriteString(` ;; -- division is not supported --`)
 		}
 	}
+	f.WriteString(`jmp @main_exit
+`)
+	f.WriteString(`; -- file end --
+@main_exit:
+	pop eax
+	ret`)
 	f.Close()
 	ExecuteCommand("nasm", "-f", "elf64", "out.asm")
 	ExecuteCommand("ld", "-o", "out", "out.o")
