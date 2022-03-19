@@ -1,4 +1,6 @@
 # Unilang
+<img src="https://img.shields.io/github/downloads/5CYTH3/unilang/total?style=flat-square"> <img src="https://img.shields.io/github/commit-activity/m/5CYTH3/unilang?style=flat-square"> <img src="https://img.shields.io/github/languages/count/5CYTH3/unilang?style=flat-square">
+
 The Uni language is a project that uses different paradigms relatively to the file type.
 For a file ending with .uo, your code will be Object Oriented. Thereby, a file ending with .uf will contain functional code.
 

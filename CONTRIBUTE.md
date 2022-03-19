@@ -1,12 +1,14 @@
 # Contribute
 To contribute to the project, I recommend you to have chocolatey (windows) or any package manager of your 
 linux distribution to install the packages `nasm` and `gcc` (TDM-GCC for windows), required for the 
-development of uni (i.e. main.go:65).
+development of uni.
 
 # Getting Started
 
-* [MacOS / Linux](#macos-/-linux)
-* [Windows](#windows)
+- [Contribute](#contribute)
+  - [Getting Started](#getting-started)
+    - [MacOS / Linux](#macos--linux)
+    - [Windows](#windows)
 
 ## MacOS / Linux
 > Make sure you have [go](https://go.dev/) and `nasm` installed on your machine (you can installe them using your default package manager such as **pacman** or **apt**)
