@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/exec"
 
+	"github.com/prometheus/common/log"
 	t "scythe.com/uni/src/tokens"
 	"scythe.com/uni/src/util"
 )
@@ -31,12 +32,19 @@ _start:` + "\n")
 		}
 	}
 	f.Close()
-	o1, _ := exec.Command("nasm", "-f", "elf64", "out.asm").Output()
-	o2, _ := exec.Command("ld", "-o", "out", "out.o").Output()
-	fmt.Printf("%s", o1)
-	fmt.Printf("%s", o2)
+	ExecuteCommand("nasm", "-f", "elf64", "out.asm")
+	ExecuteCommand("ld", "-o", "out", "out.o")
 	// defer os.Remove("out.asm")
 	defer os.Remove("out.o")
+}
+
+func ExecuteCommand(cmdName string, cmdArg ...string) ([]byte, error) {
+	out, err := exec.Command(cmdName, cmdArg...).Output()
+	fmt.Printf("%s", out)
+	if err != nil {
+		log.Error(err)
+	}
+	return out, err
 }
 
 func Simulate(entry []t.Tokens) {
