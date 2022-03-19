@@ -1,4 +1,4 @@
-package parser
+package lexer
 
 import (
 	"os"
@@ -50,15 +50,17 @@ func InfixToRPN(arr []t.Tokens) []t.Tokens {
 }
 */
 
+// Split and trim the given string. Return the splitted string
 func CleanString(str string) []string {
 	str = strings.Replace(str, "\n", " ", -1)
 	strArr := strings.Split(str, " ")
 	return strArr
 }
 
+// Takes an array of string as parameter and return an array of tokens.
 func LexString(input []string) []t.Tokens {
 	arr := make([]t.Tokens, 0)
-	for _, i := range input {
+	for _, i := range input { // For each items of the array, append the Token associated to the current item to an array
 		arr = append(arr, t.ParseTokenAsOperator(i))
 	}
 	return arr
@@ -68,7 +70,7 @@ func LexString(input []string) []t.Tokens {
 func LexFile(file string) []t.Tokens {
 	var arr []t.Tokens
 
-	// File reading -> splitted file
+	// File parsing -> array of Tokens
 	f, err := os.ReadFile(file)
 	if err == nil {
 		t_file := string(f)
