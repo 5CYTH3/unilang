@@ -7,19 +7,18 @@ import (
 	"strings"
 
 	b "scythe.com/uni/src/build"
-	p "scythe.com/uni/src/parser"
+	l "scythe.com/uni/src/lexer"
 )
 
-// Interpret the user input from ParseLine function
+// Simulate the input, lexed from a string to tokens.
 func sim() {
 	reader := bufio.NewScanner(os.Stdin)
 	fmt.Printf("Unilang. Development version. Report bugs at https://github.com/5CYTH3/unilang/issues\n")
 	for {
 		fmt.Printf("$uni-> ")
 		reader.Scan()
-		stack := p.ParseLine(reader.Text())
-		fin := p.InfixToRPN(stack)
-		b.Simulate(fin)
+		input := reader.Text()
+		b.Simulate(l.LexString(l.CleanString(input)))
 	}
 }
 
@@ -35,11 +34,11 @@ Commands:
 func main() {
 	if len(os.Args) >= 2 {
 		switch os.Args[1] {
-		// Build command
+		// Build command, ASM generation (GenerateAssembly function) and full process of lexing
 		case "build":
 			if len(os.Args) >= 3 {
 				if strings.HasSuffix(os.Args[2], ".uf") || strings.HasSuffix(os.Args[2], ".uo") {
-					b.GenerateAssembly(p.InfixToRPN(p.ParseFile(os.Args[2])))
+					b.GenerateAssembly(l.LexFile(os.Args[2]))
 				} else {
 					fmt.Println("err001: Please provide a valid file. (.uo, .uf)")
 					os.Exit(1)
@@ -49,7 +48,7 @@ func main() {
 				fmt.Println("err002: Please provide a file for the parsing.")
 				fmt.Println("-> Usage: uni build <file>")
 			}
-		// Interpret
+		// Simulating of the program.
 		case "run":
 			sim()
 		default:

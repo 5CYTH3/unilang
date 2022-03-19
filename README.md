@@ -1,12 +1,12 @@
 # Unilang
 <img src="https://img.shields.io/github/downloads/5CYTH3/unilang/total?style=flat-square"> <img src="https://img.shields.io/github/commit-activity/m/5CYTH3/unilang?style=flat-square"> <img src="https://img.shields.io/github/languages/count/5CYTH3/unilang?style=flat-square">
 
-The Uni language is a project for a language that uses different paradigms relatively to the file type.
-For a file ending with .uo, your code will be Object Oriented. For a file ending with .uf, yout code will be functional.
+The Uni language is a project that uses different paradigms relatively to the file type.
+For a file ending with .uo, your code will be Object Oriented. Thereby, a file ending with .uf will contain functional code.
 
-The compiler that I am trying to build is actually made in Golang. It's a fast, readable and garbage-collected language.
+The compiler is made in Golang. It's a fast, readable and garbage-collected language.
 
-:warning: If you are a Go developer and interested in contributing to the project, go check the [CONTRIBUTE.md](CONTRIBUTE.md) file.
+> :warning: If you are a Go developer and interested in contributing to the project, go check the [CONTRIBUTE.md](CONTRIBUTE.md) file.
 
 ## Syntax
 
