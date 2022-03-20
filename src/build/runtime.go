@@ -22,6 +22,7 @@ _start:` + "\n")
 			f.WriteString(fmt.Sprintf("mov rax, %d\n", i.GetValue()))
 		} else if i.GetOp() == t.OP_PLUS {
 			f.WriteString(`	;; -- adding 2 values --
+	pop rbx
 	add rax, rbx
 	ret`)
 		} else if i.GetOp() == t.OP_DUMP {
