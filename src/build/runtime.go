@@ -2,6 +2,7 @@ package build
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 
@@ -12,22 +13,23 @@ import (
 func GenerateAssembly(entry []t.Tokens) {
 	f, _ := os.Create("out.asm")
 	f.WriteString(`segment .text
-global main
+	global _start
 
-main:` + "\n")
+_start:` + "\n")
 	for _, i := range entry {
 		if i.GetOp() == t.OP_PUSH {
 			f.WriteString(fmt.Sprintf("	;; -- pushing value %d --\n", i.GetValue()))
-			f.WriteString(fmt.Sprintf("push rax, %d\n", i.GetValue()))
+			f.WriteString(fmt.Sprintf("mov rax, %d\n", i.GetValue()))
 		} else if i.GetOp() == t.OP_PLUS {
 			f.WriteString(`	;; -- adding 2 values --
+	pop rbx
 	add rax, rbx
-	RET`)
+	ret`)
 		} else if i.GetOp() == t.OP_DUMP {
 			// Asm
 		} else if i.GetOp() == t.OP_MIN {
 			f.WriteString(`	;; -- substracting 2 values --
-	SUB RAX, RBX`)
+	sub rax, rbx`)
 		} else if i.GetOp() == t.OP_MUL {
 			f.WriteString(` ;; -- multiplication is not supported --`)
 		} else if i.GetOp() == t.OP_DIV {
@@ -38,15 +40,22 @@ main:` + "\n")
 `)
 	f.WriteString(`; -- file end --
 @main_exit:
-	pop eax
+	pop rax
 	ret`)
 	f.Close()
-	o1, _ := exec.Command("nasm", "-f", "elf64", "out.asm").Output()
-	o2, _ := exec.Command("ld", "-o", "out", "out.o").Output()
-	fmt.Printf("%s", o1)
-	fmt.Printf("%s", o2)
+	ExecuteCommand("nasm", "-f", "elf64", "out.asm")
+	ExecuteCommand("ld", "-o", "out", "out.o")
 	// defer os.Remove("out.asm")
 	defer os.Remove("out.o")
+}
+
+func ExecuteCommand(cmdName string, cmdArg ...string) ([]byte, error) {
+	out, err := exec.Command(cmdName, cmdArg...).Output()
+	fmt.Printf("%s", out)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return out, err
 }
 
 func Simulate(entry []t.Tokens) {
