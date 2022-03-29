@@ -99,6 +99,7 @@ func InfixToPostfix(arr []Tokens) []Tokens {
 
 	for j := 0; j < len(operandStack); j++ {
 		postFixTerms[termsIndex] = util.Pop(&operandStack)
+		termsIndex++
 	}
 
 	return postFixTerms
