@@ -89,7 +89,7 @@ func InfixToPostfix(arr []Tokens) []Tokens {
 	termsIndex := 0
 
 	for i := 0; i < len(arr); i++ {
-		if arr[i].op != OP_PUSH || arr[i].op != OP_DUMP {
+		if arr[i].op != OP_PUSH {
 			operandStack = append(operandStack, arr[i])
 		} else {
 			postFixTerms[termsIndex] = arr[i]
