@@ -19,7 +19,6 @@ To install all the dependencies required, just follow these steps (we will use p
 cd yourdirectory
 pacman -S nasm
 git clone git clone https://github.com/5CYTH3/unilang.git
-
 ```
 
 ## Windows
@@ -29,7 +28,6 @@ To install all the dependencies required, just follow these steps :
 
 ```
 cd yourdirectory
-choco install make
 choco install nasm
 choco install mingw
 git clone https://github.com/5CYTH3/unilang.git
@@ -40,6 +38,12 @@ cd unilang
 ## Build part
 Building the project would'nt have been easier !
 
+PowerShell :
 ```
-make build-go -C src
+cd src; go build -o ../bin/uni.exe; cd ../
+```
+
+Linux
+```
+cd src && go build -o ../bin/uni.exe && cd ../
 ```

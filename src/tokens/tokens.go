@@ -2,8 +2,6 @@ package tokens
 
 import (
 	"strconv"
-
-	"scythe.com/uni/src/util"
 )
 
 type Token int64
