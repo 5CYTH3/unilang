@@ -1,7 +1,10 @@
 package tokens
 
 import (
+	"fmt"
 	"strconv"
+
+	"scythe.com/uni/src/util"
 )
 
 type Token int64
@@ -78,6 +81,39 @@ func L_Paren() Tokens {
 
 func R_Paren() Tokens {
 	return Tokens{R_PAREN, 0, 0}
+}
+
+func InfixToPostfix(arr []Tokens) []Tokens {
+	operatorStack := make([]Tokens, 0)
+	postFixTerms := make([]Tokens, len(arr))
+
+	for i := 0; i <= len(arr); i++ {
+		token := arr[i]
+		if token.op == OP_PUSH {
+			postFixTerms[i] = token
+		} else if token.op == L_PAREN {
+			operatorStack[i] = token
+		} else if token.op == R_PAREN {
+			for postFixTerms[len(postFixTerms)].op != L_PAREN {
+				a := util.Pop(&operatorStack)
+				postFixTerms[i] = a
+			}
+			util.Pop(&operatorStack)
+		} else {
+			for (operatorStack[len(operatorStack)-1].op != L_PAREN) && (operatorStack[len(operatorStack)-1].priority > token.priority) {
+				fmt.Println("Popped")
+				a := util.Pop(&operatorStack)
+				postFixTerms[i] = a
+			}
+		}
+		fmt.Println(postFixTerms)
+	}
+
+	for operatorStack != nil {
+		a := util.Pop(&operatorStack)
+		postFixTerms = append(postFixTerms, a)
+	}
+	return postFixTerms
 }
 
 // Parse a string array and append for each chars an operator to an array. Then, return the array
