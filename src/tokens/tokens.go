@@ -97,6 +97,7 @@ func R_Paren() Tokens {
 func InfixToPostfix(arr []Tokens) []Tokens {
 	operatorStack := make([]Tokens, 0)
 	postFixTerms := make([]Tokens, 0)
+	kwStack := make([]Tokens, 0)
 
 	for i := 0; i <= len(arr)-1; i++ {
 		token := arr[i]
@@ -112,6 +113,8 @@ func InfixToPostfix(arr []Tokens) []Tokens {
 				postFixTerms = append(postFixTerms, a)
 			}
 			util.Pop(&operatorStack)
+		case OP_DUMP:
+			kwStack = append(kwStack, token)
 		default:
 			if token.isOp {
 				for len(operatorStack) > 0 {
@@ -133,6 +136,11 @@ func InfixToPostfix(arr []Tokens) []Tokens {
 		a := util.Pop(&operatorStack)
 		postFixTerms = append(postFixTerms, a)
 	}
+	for len(kwStack) > 0 {
+		a := util.Pop(&kwStack)
+		postFixTerms = append(postFixTerms, a)
+	}
+
 	return postFixTerms
 }
 

@@ -20,7 +20,7 @@ func LexString(input []string) []t.Tokens {
 	for _, i := range input { // For each items of the array, append the Token associated to the current item to an array
 		arr = append(arr, t.ParseTokenAsOperator(i))
 	}
-	return arr
+	return t.InfixToPostfix(arr)
 }
 
 // Lex all the tokens of a file

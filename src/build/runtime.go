@@ -86,4 +86,5 @@ func Simulate(entry []t.Tokens) {
 			fmt.Printf("Invalid operator")
 		}
 	}
+	fmt.Println(arr)
 }
