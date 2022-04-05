@@ -53,7 +53,7 @@ global _start` + "\n")
 	for _, i := range entry {
 		if i.GetOp() == t.OP_PUSH {
 			f.WriteString(fmt.Sprintf("	;; -- pushing value %d --\n", i.GetValue()))
-			f.WriteString(fmt.Sprintf("	mov rax, %d\n", i.GetValue()))
+			f.WriteString(fmt.Sprintf("	push %d\n", i.GetValue()))
 		} else if i.GetOp() == t.OP_PLUS {
 			f.WriteString(`	;; -- adding 2 values --
 	pop rax
@@ -67,13 +67,13 @@ global _start` + "\n")
 			f.WriteString(`	;; -- substracting 2 values --
 	pop rax
 	pop rbx
-	sub rax, rbx
-	push rax
+	sub rbx, rax
+	push rbx
 	`)
 		} else if i.GetOp() == t.OP_MUL {
 			f.WriteString(` ;; -- multiplication is not supported --`)
 		} else if i.GetOp() == t.OP_DUMP {
-			f.WriteString(`	pop rdi
+			f.WriteString(`pop rdi
 	call dump` + "\n")
 		}
 	}
@@ -83,8 +83,8 @@ global _start` + "\n")
 	f.Close()
 	ExecuteCommand("nasm", "-f", "elf64", "out.asm")
 	ExecuteCommand("ld", "-o", "out.exe", "out.o")
-	defer os.Remove("out.asm")
-	defer os.Remove("out.o")
+	// defer os.Remove("out.asm")
+	// defer os.Remove("out.o")
 }
 
 func ExecuteCommand(cmdName string, cmdArg ...string) ([]byte, error) {
