@@ -6,14 +6,14 @@ import (
 	"testing"
 )
 
-func TestInfixToPostfix(t *testing.T) {
+func TestInfixToRPN(t *testing.T) {
 	var tests = [][][]Tokens{
 		{
-			InfixToPostfix([]Tokens{Push(33), Plus(), Push(22), Dump()}),
+			InfixToRPN([]Tokens{Push(33), Plus(), Push(22), Dump()}),
 			[]Tokens{Push(33), Push(22), Plus(), Dump()},
 		},
 		{
-			InfixToPostfix([]Tokens{Push(33), Plus(), Push(22), Min(), Push(20)}),
+			InfixToRPN([]Tokens{Push(33), Plus(), Push(22), Min(), Push(20)}),
 			[]Tokens{Push(33), Push(22), Plus(), Push(20), Min()},
 		},
 	}

@@ -94,7 +94,7 @@ func R_Paren() Tokens {
 	return Tokens{R_PAREN, 0, 0, false, false}
 }
 
-func InfixToPostfix(arr []Tokens) []Tokens {
+func InfixToRPN(arr []Tokens) []Tokens {
 	operatorStack := make([]Tokens, 0)
 	postFixTerms := make([]Tokens, 0)
 	kwStack := make([]Tokens, 0)

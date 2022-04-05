@@ -45,8 +45,8 @@ _start:` + "\n")
 	f.Close()
 	ExecuteCommand("nasm", "-f", "elf64", "out.asm")
 	ExecuteCommand("ld", "-o", "out", "out.o")
-	// defer os.Remove("out.asm")
-	defer os.Remove("out.o")
+	os.Remove("out.asm")
+	os.Remove("out.o")
 }
 
 func ExecuteCommand(cmdName string, cmdArg ...string) ([]byte, error) {
