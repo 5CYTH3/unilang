@@ -21,10 +21,10 @@ const (
 	OP_MUL               // multiplication
 	OP_DIV               // division
 	OP_PUSH
-	OP_DUMP
+	OP_DUMP // dump
 	OP_DEFAULT
-	L_PAREN
-	R_PAREN
+	L_PAREN // left paren
+	R_PAREN // right paren
 )
 
 // Return the Operator of the "Token" struct
