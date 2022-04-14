@@ -81,6 +81,13 @@ func Simulate(entry []t.Tokens) {
 		} else if i.GetOp() == t.OP_DIV {
 			a := util.Pop(&arr)
 			b := util.Pop(&arr)
+			if b == 0 {
+				fmt.Println("Division by zero")
+				os.Exit(1)
+			} else if a == 0 {
+				fmt.Println("Division by zero")
+				os.Exit(1)
+			}
 			arr = append(arr, b/a)
 		} else {
 			fmt.Printf("Invalid operator")
