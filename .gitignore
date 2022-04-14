@@ -1,6 +1,6 @@
 /pkg/
 /test/
 /.vscode/
-**/*/out.asm
-**/*/out
+src/out.asm
+src/out
 test.*
