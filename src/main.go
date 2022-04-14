@@ -38,7 +38,9 @@ func main() {
 		case "build":
 			if len(os.Args) >= 3 {
 				if strings.HasSuffix(os.Args[2], ".uf") || strings.HasSuffix(os.Args[2], ".uo") {
-					b.GenerateAssembly(l.LexFile(os.Args[2]))
+					lexFile := l.LexFile(os.Args[2])
+					b.GenerateAssembly(lexFile)
+					fmt.Println(lexFile)
 				} else {
 					fmt.Println("err001: Please provide a valid file. (.uo, .uf)")
 					os.Exit(1)
