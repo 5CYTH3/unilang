@@ -27,8 +27,8 @@ func Usage() {
 Usage: uni <command> [argument]
 
 Commands:
-	- run
-	- build [file]`)
+	- run (interpreter)
+	- build [file] (compile a file)`)
 }
 
 func main() {
