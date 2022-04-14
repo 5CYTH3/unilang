@@ -73,7 +73,7 @@ global _start` + "\n")
 		} else if i.GetOp() == t.OP_MUL {
 			f.WriteString(` ;; -- multiplication is not supported --`)
 		} else if i.GetOp() == t.OP_DUMP {
-			f.WriteString(`pop rdi
+			f.WriteString(`	pop rdi
 	call dump` + "\n")
 		}
 	}
