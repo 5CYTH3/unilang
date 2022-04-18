@@ -29,7 +29,8 @@ Usage: uni <command> [argument]
 
 Commands:
 	- run (interpreter)
-	- build [file] (compile a file)`)
+	- build [file] (compile a file)
+	- version (get the version of the program)`)
 }
 
 func main() {
