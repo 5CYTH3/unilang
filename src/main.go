@@ -54,7 +54,7 @@ func main() {
 		case "run":
 			sim()
 		case "version":
-			fmt.Println("Unilang 0.0.1. Development version. Report bugs at https://github.com/5CYTH3/unilang/issues\n")
+			fmt.Println("Unilang 0.0.1. Development version. Report bugs at https://github.com/5CYTH3/unilang/issues")
 		default:
 			fmt.Println("err003: The command " + "\"" + os.Args[1] + "\"" + " is not valid.")
 			os.Exit(1)
