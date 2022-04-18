@@ -15,7 +15,8 @@ func sim() {
 	reader := bufio.NewScanner(os.Stdin)
 	fmt.Printf("Unilang 0.0.1. Development version. Report bugs at https://github.com/5CYTH3/unilang/issues\n")
 	for {
-		fmt.Printf("$uni-> ")
+		// "\033[32m" is the color code for green. "\033[0m" is the reset code.
+		fmt.Printf("\033[32m" + "$uni-> " + "\033[0m")
 		reader.Scan()
 		input := reader.Text()
 		b.Simulate(l.LexString(l.CleanString(input)))
