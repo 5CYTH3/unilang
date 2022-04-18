@@ -14,13 +14,13 @@ and `gcc` (TDM-GCC for windows), required for the development of uni.
 ## MacOS / Linux
 
 > Make sure you have [go](https://go.dev/) and `nasm` installed on your machine
-> (you can installe them using your default package manager such as **pacman**
+> (you can install them using your default package manager such as **pacman**
 > or **apt**)
 
 To install all the dependencies required, just follow these steps (we will use
 pacman as an example)
 
-```
+```bash
 cd yourdirectory
 pacman -S nasm
 git clone git clone https://github.com/5CYTH3/unilang.git
@@ -32,7 +32,7 @@ git clone git clone https://github.com/5CYTH3/unilang.git
 > [go **1.18**](https://go.dev/) installed on your computer. To install all the
 > dependencies required, just follow these steps :
 
-```
+```bash
 cd yourdirectory
 choco install nasm
 choco install mingw
@@ -49,12 +49,12 @@ Building the project would'nt have been easier !
 
 PowerShell :
 
-```
+```ps
 cd src; go build -o ../bin/uni.exe; cd ../
 ```
 
 Linux
 
-```
+```bash
 cd src && go build -o ../bin/uni && cd ../
 ```
