@@ -52,26 +52,26 @@ global _start` + "\n")
 	f.WriteString("_start:\n")
 	for _, i := range entry {
 		if i.GetOp() == t.OP_PUSH {
-			f.WriteString(fmt.Sprintf("	;; -- pushing value %d --\n", i.GetValue()))
+			f.WriteString(fmt.Sprintf("	;; -- Pushing value %d --\n", i.GetValue()))
 			f.WriteString(fmt.Sprintf("	push %d\n", i.GetValue()))
 		} else if i.GetOp() == t.OP_PLUS {
-			f.WriteString(`	;; -- adding 2 values --
+			f.WriteString(`	;; -- Adding 2 values --
 	pop rax
 	pop rbx
 	add rax, rbx
 	push rax
 	ret` + "\n")
 		} else if i.GetOp() == t.OP_DIV {
-			f.WriteString(`;; -- Divison not supported for now --`)
+			f.WriteString(`;; -- Divison is not supported for now --`)
 		} else if i.GetOp() == t.OP_MIN {
-			f.WriteString(`	;; -- substracting 2 values --
+			f.WriteString(`	;; -- Substracting 2 values --
 	pop rax
 	pop rbx
 	sub rbx, rax
 	push rbx
 	`)
 		} else if i.GetOp() == t.OP_MUL {
-			f.WriteString(` ;; -- multiplication is not supported --`)
+			f.WriteString(` ;; -- Multiplication is not supported for now--`)
 		} else if i.GetOp() == t.OP_DUMP {
 			f.WriteString(`	pop rdi
 	call dump` + "\n")
@@ -120,15 +120,15 @@ func Simulate(entry []t.Tokens) {
 			a := util.Pop(&arr)
 			b := util.Pop(&arr)
 			if b == 0 {
-				fmt.Println("Division by zero")
+				fmt.Println("ZeroDivisionError: Cannot divide by zero")
 				os.Exit(1)
 			} else if a == 0 {
-				fmt.Println("Division by zero")
+				fmt.Println("ZeroDivisionError: Cannot divide by zero")
 				os.Exit(1)
 			}
 			arr = append(arr, b/a)
 		} else {
-			fmt.Printf("Invalid operator")
+			fmt.Printf("SyntaxError: Invalid operator")
 		}
 	}
 	fmt.Println(arr)
