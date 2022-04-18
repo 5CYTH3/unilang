@@ -13,9 +13,10 @@ import (
 // Simulate the input, lexed from a string to tokens.
 func sim() {
 	reader := bufio.NewScanner(os.Stdin)
-	fmt.Printf("Unilang. Development version. Report bugs at https://github.com/5CYTH3/unilang/issues\n")
+	fmt.Printf("Unilang 0.0.1. Development version. Report bugs at https://github.com/5CYTH3/unilang/issues\n")
 	for {
-		fmt.Printf("$uni-> ")
+		// "\033[32m" is the color code for green. "\033[0m" is the reset code.
+		fmt.Printf("\033[32m" + "$uni-> " + "\033[0m")
 		reader.Scan()
 		input := reader.Text()
 		b.Simulate(l.LexString(l.CleanString(input)))
@@ -28,7 +29,8 @@ Usage: uni <command> [argument]
 
 Commands:
 	- run (interpreter)
-	- build [file] (compile a file)`)
+	- build [file] (compile a file)
+	- version (get the version of the program)`)
 }
 
 func main() {
@@ -38,7 +40,9 @@ func main() {
 		case "build":
 			if len(os.Args) >= 3 {
 				if strings.HasSuffix(os.Args[2], ".uf") || strings.HasSuffix(os.Args[2], ".uo") {
-					b.GenerateAssembly(l.LexFile(os.Args[2]))
+					lexFile := l.LexFile(os.Args[2])
+					b.GenerateAssembly(lexFile)
+					fmt.Println(lexFile)
 				} else {
 					fmt.Println("err001: Please provide a valid file. (.uo, .uf)")
 					os.Exit(1)
@@ -51,6 +55,8 @@ func main() {
 		// Simulating of the program.
 		case "run":
 			sim()
+		case "version":
+			fmt.Println("Unilang 0.0.1. Development version. Report bugs at https://github.com/5CYTH3/unilang/issues")
 		default:
 			fmt.Println("err003: The command " + "\"" + os.Args[1] + "\"" + " is not valid.")
 			os.Exit(1)

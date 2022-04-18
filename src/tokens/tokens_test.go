@@ -6,11 +6,26 @@ import (
 	"testing"
 )
 
-func TestInfixToPostfix(t *testing.T) {
-	got := InfixToPostfix([]Tokens{Push(33), Plus(), Push(22), Dump()})
-	want := []Tokens{Push(33), Push(22), Plus(), Dump()}
-
-	if reflect.DeepEqual(got, want) == false {
-		t.Errorf("err! got : " + fmt.Sprint(got) + "for expected : " + fmt.Sprint(want))
+func TestInfixToRPN(t *testing.T) {
+	var tests = [][][]Tokens{
+		{
+			InfixToRPN([]Tokens{Push(33), Plus(), Push(22), Dump()}),
+			[]Tokens{Push(33), Push(22), Plus(), Dump()},
+		},
+		{
+			InfixToRPN([]Tokens{Push(33), Plus(), Push(22), Min(), Push(20)}),
+			[]Tokens{Push(33), Push(22), Plus(), Push(20), Min()},
+		},
 	}
+
+	for _, tt := range tests {
+
+		testname := fmt.Sprintf("Testing two [][]Tokens")
+		t.Run(testname, func(t *testing.T) {
+			if reflect.DeepEqual(tt[0], tt[1]) == false {
+				t.Errorf("got %v, want %v", tt[0], tt[1])
+			}
+		})
+	}
+
 }

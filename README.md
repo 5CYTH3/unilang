@@ -20,7 +20,7 @@ import "Std"
 
 func main(): void {
     hw: string = "Hello World";
-    Std.print(string);
+    Std.print(hw);
 }
 ```
 
@@ -33,14 +33,14 @@ import "Std"
 class Main {
     func main(): void {
         hw: string = "Hello World";
-        Std.print(string);
+        Std.print(hw);
     }
 }
 ```
 
 ## Objectives
 
-All the steps I want to achieve for this programming language:
+All the steps I want to achieve for this programming language (non-exhaustive):
 
 ##### Basic parsing
 - [x] Basic array calculation
